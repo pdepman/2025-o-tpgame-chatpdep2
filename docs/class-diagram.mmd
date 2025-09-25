@@ -1,0 +1,343 @@
+classDiagram
+    %% Core Abstract Classes
+    class GameObject {
+        <<abstract>>
+        -Position position
+        -Visual visual
+        -Boolean active
+        +GameObject(x, y)
+        +update()*
+        +render()
+        +getPosition()
+        +setPosition(x, y)
+        +isActive()
+        +activate()
+        +deactivate()
+    }
+
+    class MovableObject {
+        <<abstract>>
+        -Direction currentDirection
+        -Number speed
+        -Boolean isMoving
+        +move(direction)
+        +stop()
+        +canMoveTo(position)
+        +getSpeed()
+        +setSpeed(newSpeed)
+    }
+
+    class StaticObject {
+        <<abstract>>
+        -Boolean solid
+        +isSolid()
+        +setSolid(solid)
+    }
+
+    %% Character Classes
+    class Character {
+        <<abstract>>
+        -Number health
+        -CharacterState currentState
+        +takeDamage(amount)
+        +heal(amount)
+        +isDead()
+        +changeState(newState)
+    }
+
+    class Snake {
+        -InventoryManager inventory
+        -DetectionStatus detectionStatus
+        -SnakeState snakeState
+        +collectItem(item)
+        +useItem(itemType)
+        +hide()
+        +unhide()
+        +isHidden()
+        +getInventory()
+    }
+
+    class Guard {
+        <<abstract>>
+        -PatrolStrategy patrolStrategy
+        -Number detectionRange
+        -Number fieldOfView
+        -AlertLevel alertLevel
+        -List~Position~ patrolRoute
+        +patrol()*
+        +detectPlayer(player)
+        +onAlert()*
+        +setPatrolStrategy(strategy)
+        +isPlayerInRange(player)
+        +canSeePlayer(player)
+    }
+
+    class PatrolGuard {
+        -Number routeIndex
+        -Boolean routeReverse
+        +patrol()
+        +onAlert()
+        +setRoute(positions)
+        +nextWaypoint()
+    }
+
+    class StaticGuard {
+        -Direction facingDirection
+        -Number rotationSpeed
+        +patrol()
+        +onAlert()
+        +rotate()
+    }
+
+    class SentryGuard {
+        -Position guardPost
+        -Number alertRadius
+        +patrol()
+        +onAlert()
+        +returnToPost()
+    }
+
+    %% Item Classes
+    class Item {
+        <<abstract>>
+        -String name
+        -String description
+        +use(player)*
+        +canUse(context)*
+        +getName()
+        +getDescription()
+    }
+
+    class Key {
+        -String keyId
+        -String doorId
+        +use(player)
+        +canUse(context)
+        +matches(door)
+    }
+
+    class Weapon {
+        <<abstract>>
+        -Number damage
+        -Number range
+        -Number ammo
+        +use(target)*
+        +reload()
+        +hasAmmo()
+        +getDamage()
+        +getRange()
+    }
+
+    class Pistol {
+        +use(target)
+        +shoot(target)
+    }
+
+    class Rifle {
+        -Boolean scoped
+        +use(target)
+        +shoot(target)
+        +aim()
+    }
+
+    class CardboardBox {
+        -Boolean inUse
+        +use(player)
+        +canUse(context)
+        +hide(player)
+        +unhide(player)
+    }
+
+    class HealthKit {
+        -Number healAmount
+        +use(player)
+        +canUse(context)
+    }
+
+    %% Environment Classes
+    class Obstacle {
+        <<abstract>>
+        -Boolean blocksMovement
+        -Boolean blocksVision
+        +blocksMovement()
+        +blocksVision()
+    }
+
+    class Wall {
+        +Wall(x, y)
+    }
+
+    class Door {
+        -String doorId
+        -Boolean locked
+        -Key requiredKey
+        +open(key)
+        +close()
+        +isLocked()
+        +unlock(key)
+    }
+
+    class Container {
+        -List~Item~ contents
+        -Boolean opened
+        +open()
+        +close()
+        +addItem(item)
+        +removeItem(item)
+        +getContents()
+    }
+
+    %% System Classes
+    class GameManager {
+        -List~GameObject~ gameObjects
+        -GameState currentState
+        -Level currentLevel
+        -Snake player
+        +startGame()
+        +endGame()
+        +update()
+        +addGameObject(object)
+        +removeGameObject(object)
+        +changeLevel(newLevel)
+        +checkVictoryConditions()
+        +checkGameOverConditions()
+    }
+
+    class CollisionManager {
+        +checkCollision(obj1, obj2)
+        +canMoveTo(object, position)
+        +getCollidingObjects(object)
+        +resolveCollision(obj1, obj2)
+    }
+
+    class DetectionSystem {
+        +isPlayerVisible(guard, player)
+        +calculateLineOfSight(from, to)
+        +notifyAlert(position)
+        +addObserver(observer)
+        +removeObserver(observer)
+    }
+
+    class InventoryManager {
+        -List~Item~ items
+        -Number maxCapacity
+        +addItem(item)
+        +removeItem(item)
+        +useItem(itemType)
+        +hasItem(itemType)
+        +isFull()
+        +getItems()
+    }
+
+    class LevelLoader {
+        +loadLevel(levelName)
+        +parseLevel(levelData)
+        +createGameObjects(levelData)
+        +setObjectives(objectives)
+    }
+
+    %% Strategy Classes
+    class PatrolStrategy {
+        <<interface>>
+        +execute(guard)*
+    }
+
+    class LinearPatrol {
+        +execute(guard)
+    }
+
+    class CircularPatrol {
+        +execute(guard)
+    }
+
+    class RandomPatrol {
+        +execute(guard)
+    }
+
+    %% State Classes
+    class SnakeState {
+        <<interface>>
+        +move(snake, direction)*
+        +interact(snake, object)*
+    }
+
+    class NormalState {
+        +move(snake, direction)
+        +interact(snake, object)
+    }
+
+    class HiddenState {
+        +move(snake, direction)
+        +interact(snake, object)
+    }
+
+    class AlertedState {
+        +move(snake, direction)
+        +interact(snake, object)
+    }
+
+    %% Level Classes
+    class Level {
+        -String name
+        -List~GameObject~ objects
+        -Position playerStart
+        -List~Position~ objectives
+        -Number timeLimit
+        +loadLevel()
+        +checkObjectives()
+        +isComplete()
+        +getObjects()
+    }
+
+    %% Relationships
+    GameObject <|-- MovableObject
+    GameObject <|-- StaticObject
+    
+    MovableObject <|-- Character
+    Character <|-- Snake
+    Character <|-- Guard
+    
+    Guard <|-- PatrolGuard
+    Guard <|-- StaticGuard  
+    Guard <|-- SentryGuard
+    
+    StaticObject <|-- Item
+    StaticObject <|-- Obstacle
+    
+    Item <|-- Key
+    Item <|-- Weapon
+    Item <|-- CardboardBox
+    Item <|-- HealthKit
+    
+    Weapon <|-- Pistol
+    Weapon <|-- Rifle
+    
+    Obstacle <|-- Wall
+    Obstacle <|-- Door
+    Obstacle <|-- Container
+    
+    %% Strategy Pattern
+    PatrolStrategy <|.. LinearPatrol
+    PatrolStrategy <|.. CircularPatrol
+    PatrolStrategy <|.. RandomPatrol
+    Guard --> PatrolStrategy
+    
+    %% State Pattern
+    SnakeState <|.. NormalState
+    SnakeState <|.. HiddenState
+    SnakeState <|.. AlertedState
+    Snake --> SnakeState
+    
+    %% Composition Relationships
+    Snake *-- InventoryManager
+    GameManager *-- CollisionManager
+    GameManager *-- DetectionSystem
+    GameManager *-- LevelLoader
+    Level o-- GameObject
+    
+    %% Association Relationships
+    Guard ..> Snake : detects
+    DetectionSystem ..> Guard : notifies
+    Key ..> Door : unlocks
+    Container o-- Item
+    GameManager --> Level
