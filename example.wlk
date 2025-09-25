@@ -7,3 +7,9 @@ object pepita {
     energy = energy - minutes * 3
   }
 }
+
+object solidSnake{
+  var property position=game.origin()
+  method image()="snake_parado.png" 
+
+}

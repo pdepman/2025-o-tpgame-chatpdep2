@@ -1,18 +1,18 @@
 import wollok.game.*
 
 import example.pepita
+import example.solidSnake
 
 program PepitaGame {
 	game.title("Pepita")
-	game.height(10)
-	game.width(10)
+	game.height(100)
+	game.width(100)
 
 	// add assets in asset folder, for example, for the background
-  // game.boardGround("fondo2.jpg")
-
-	//
+	game.boardGround("fondo.jpg")
 
 	game.showAttributes(pepita) //Debug
+	game.addVisualCharacter(solidSnake)
 
 	game.start()
 }
