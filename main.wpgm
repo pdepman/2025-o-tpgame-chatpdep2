@@ -18,6 +18,29 @@ program MetalGearNES {
     solidSnake.position(game.at(7, 5))
     game.addVisualCharacter(solidSnake)
 
+	/*
+	 * Siguiente bloque de codigo para pruebas...
+	*/
+	    // Controles básicos
+    keyboard.w().onPressDo({ 
+        solidSnake.moveTo(solidSnake.position().up(1)) 
+    })
+    keyboard.s().onPressDo({ 
+        solidSnake.moveTo(solidSnake.position().down(1)) 
+    })
+    keyboard.a().onPressDo({ 
+        solidSnake.moveTo(solidSnake.position().left(1)) 
+    })
+    keyboard.d().onPressDo({ 
+        solidSnake.moveTo(solidSnake.position().right(1)) 
+    })
+    
+    // Debug info
+    keyboard.space().onPressDo({
+        console.println("Área actual: " + areaManager.actualArea.name())
+        console.println("Posición: " + solidSnake.position())
+    })
+
 	// Inicio juego
 	game.start()
 }

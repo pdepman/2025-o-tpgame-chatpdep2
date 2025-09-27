@@ -15,30 +15,30 @@ object areaManager {
         // Verificar límites y cambiar área correspondiente
         if (pos.y() >= game.height() - 1) {
             // Ir al NORTE
-            const destino = actualArea.northConnection()()
+            const destino = actualArea.northConnection()
             if (destino != null) {
-                self.changeArea(destino, game.at(pos.x(), 0))
+                actualArea.changeArea(destino, game.at(pos.x(), 0))
             }
         }
         else if (pos.y() <= 0) {
             // Ir al SUR  
             const destino = actualArea.southConnection()
             if (destino != null) {
-                self.changeArea(destino, game.at(pos.x(), game.height() - 1))
+                actualArea.changeArea(destino, game.at(pos.x(), game.height() - 1))
             }
         }
         else if (pos.x() >= game.width() - 1) {
             // Ir al ESTE
             const destino = actualArea.eastConnection()
             if (destino != null) {
-                self.changeArea(destino, game.at(0, pos.y()))
+                actualArea.changeArea(destino, game.at(0, pos.y()))
             }
         }
         else if (pos.x() <= 0) {
             // Ir al OESTE
             const destino = actualArea.westConnection()
             if (destino != null) {
-                self.changeArea(destino, game.at(game.width() - 1, pos.y()))
+                actualArea.changeArea(destino, game.at(game.width() - 1, pos.y()))
             }
         }
     }
@@ -56,14 +56,14 @@ object northArea {
     method name() = "North Area"
 
     method load() {
-        game.boardGround("northArea.png")
+        game.boardGround("north.jpg")
         // TODO: Cargar objetos y enemigos
         console.println("Cargada: " + self.name()) // Debug
     }
 
     method removeArea() {
-        objects.forEach({ obj => game.removeVisual(obj) })
-        objects.clear()
+        //objects.forEach({ obj => game.removeVisual(obj) })
+        //objects.clear()
         // TODO: limpiarEventosEspecificos()
         console.println("Descargada: " + self.name()) // Debug
     }
@@ -80,7 +80,7 @@ object eastArea {
     method name() = "East Area"
 
     method load() {
-        game.boardGround("eastArea.png")
+        game.boardGround("east.jpg")
         // TODO: Cargar objetos y enemigos
         console.println("Cargada: " + self.name()) // Debug
     }
@@ -103,7 +103,7 @@ object westArea {
     method name() = "West Area"
 
     method load() {
-        game.boardGround("westArea.png")
+        game.boardGround("west.jpg")
         // TODO: Cargar objetos y enemigos
         console.println("Cargada: " + self.name()) // Debug
     }
@@ -126,7 +126,7 @@ object southArea {
     method name() = "South Area"
 
     method load() {
-        game.boardGround("southArea.png")
+        game.boardGround("south.jpg")
         // TODO: Cargar objetos y enemigos
         console.println("Cargada: " + self.name()) // Debug
     }
