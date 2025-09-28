@@ -9,24 +9,9 @@ program MetalGearNES {
 	// Configuración global del juegod
 	config.load()
 
-    levels.start()
 
-	/*
-	 * Controles básicos para pruebas
-	 * TODO: luego mover a un inputManager
-	*/
-    keyboard.w().onPressDo({ 
-        solidSnake.moveTo(solidSnake.position().up(1)) 
-    })
-    keyboard.s().onPressDo({ 
-        solidSnake.moveTo(solidSnake.position().down(1)) 
-    })
-    keyboard.a().onPressDo({ 
-        solidSnake.moveTo(solidSnake.position().left(1)) 
-    })
-    keyboard.d().onPressDo({ 
-        solidSnake.moveTo(solidSnake.position().right(1)) 
-    })
+  levels.start()
+
 
 	// Inicio juego
 	game.start()
