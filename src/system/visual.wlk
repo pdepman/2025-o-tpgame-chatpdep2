@@ -12,13 +12,13 @@ class Visual {
 // Inicio
 const start = new Visual(
 	image = "intro.gif",
-    position = game.origin()
+    position = game.at(3,4)
 )
 
-object startMessage {
-    method position() = game.at(2, 10) 
-    method text() = "Presiona ESPACIO para comenzar..."
-}
+const startMessage = new Visual(
+    image = "intro-message.gif",
+    position = game.at(5,1)
+)
 
 const cetralAreaBG = new Visual(
     image = "central.jpg",

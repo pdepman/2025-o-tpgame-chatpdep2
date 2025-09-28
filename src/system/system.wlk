@@ -16,7 +16,7 @@ object config {
     game.height(12)
     game.width(20)
 
-    game.boardGround("background.jpg")
+    game.boardGround("black.png")
     // Música en loop
     /*
      * Chiptune One.wav by CarlosCarty -- https://freesound.org/s/427513/ -- License: Attribution 4.0
