@@ -4,9 +4,6 @@ import src.characters.snake.*
 import src.system.visual.*
 import src.levels.areaManager.*
 
-
-
-
 object config {
   method load()
   {
