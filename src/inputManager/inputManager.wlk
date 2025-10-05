@@ -1,3 +1,4 @@
+import src.inputManager.movements.*
 import src.system.system.levels
 import src.characters.snake.solidSnake
 import wollok.game.*
@@ -14,23 +15,19 @@ object keyboardManager {
     method initKeyboard() {
         // Movimiento Snake
         keyboard.up().onPressDo({
-            solidSnake.moveTo(solidSnake.position().up(1))
-            solidSnake.lastMovement("up")
+            movement.moveUp(solidSnake)
         })
         keyboard.down().onPressDo({ 
-            solidSnake.moveTo(solidSnake.position().down(1)) 
-            solidSnake.lastMovement("down")
+            movement.moveDown(solidSnake)
     })
         keyboard.left().onPressDo({ 
-            solidSnake.moveTo(solidSnake.position().left(1)) 
-            solidSnake.lastMovement("left")
+            movement.moveLeft(solidSnake)
     })
         keyboard.right().onPressDo({ 
-            solidSnake.moveTo(solidSnake.position().right(1)) 
-            solidSnake.lastMovement("right")
+            movement.moveRight(solidSnake)
     })
 
         // Iniciar nivel 1 desde pantalla inicial
-        keyboard.space().onPressDo({ levels.loadLevel1() })
+        keyboard.space().onPressDo({ levels.loadLevel1() }) // TODO: Verificar que estemos en pantalla inicial
     }
 }
