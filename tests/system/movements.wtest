@@ -1,0 +1,28 @@
+import src.inputManager.movements.*
+import src.characters.snake.solidSnake
+import wollok.game.*
+
+/**
+ * Test iniciales de movimientos de los personajes.
+ * Se testea que moveTo actualiza posición y dirección correctamente.
+ * Se prueba solo con Snake por ahora, hasta que se implementes los Guards.
+ */
+describe "Test iniciales de movimientos de los personajes. moveTo actualiza posición y dirección" {
+    test "Snake se mueve una posición hacia arriba y actualiza la posición correctamente" {
+        // Snake inicia en game.origin() '0@0'
+
+        movement.moveUp(solidSnake)
+
+        assert.equals(game.at(0,1), solidSnake.position())
+        assert.equals("up", solidSnake.lastMovement())
+    }
+
+    test "Snake se mueve una posición hacia la derecha y actualiza la posición correctamente" {
+
+        movement.moveRight(solidSnake)
+
+        assert.equals(game.at(1,0), solidSnake.position())
+        assert.equals("right", solidSnake.lastMovement())
+    }
+}
+

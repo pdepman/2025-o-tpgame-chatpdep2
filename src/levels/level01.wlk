@@ -15,7 +15,7 @@ import src.levels.areaManager.*
  */
  const goToArea02 = new ChangeAreaEvent(
     currentArea = area01,
-    position = game.at(5, 5),
+    position = game.at(19, 11),
     nextDirection = "up",
     goToArea = area02,
     nextAreaPosition = game.at(1, 1)
