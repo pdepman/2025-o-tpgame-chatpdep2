@@ -7,20 +7,6 @@ import src.characters.snake.*
 import src.system.visual.*
 import src.levels.areaManager.*
 
-
-/*
- * Se cargan todos los eventos de cambio entre areas, en las posiciones correspondientes
- * instanciando la clase ChangeAreaEvent.
- * Se encuentra mapa completo con numeración de areas en assets/images/1280x768
- */
- const goToArea02 = new ChangeAreaEvent(
-    currentArea = area01,
-    position = game.at(19, 11),
-    nextDirection = "up",
-    goToArea = area02,
-    nextAreaPosition = game.at(1, 1)
-)
-
 // Defino las areas del nivel
 // Ver si conviene hacer una clase abstracta Area y que las areas hereden de ella
 class Area {
@@ -48,12 +34,30 @@ class Area {
 const area01 = new Area(
     background = area01BG,
     name = "Area 01",
-    changeEvents = [goToArea02]
+    changeEvents = [goToArea02, goToArea03A, goToArea03B]
 )
 
 const area02 = new Area(
     background = area02BG,
     name = "Area 02",
+    changeEvents = []
+)
+
+const area03 = new Area(
+    background = area03BG,
+    name = "Area 03",
+    changeEvents = [goToArea01A, goToArea01B] // Agregar eventos de cambio de area
+)
+
+const area04 = new Area(
+    background = area04BG,
+    name = "Area 04",
+    changeEvents = [] // Agregar eventos de cambio de area
+)
+
+const area05 = new Area(
+    background = area05BG,
+    name = "Area 05",
     changeEvents = [] // Agregar eventos de cambio de area
 )
 
