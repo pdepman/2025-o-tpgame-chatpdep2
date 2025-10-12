@@ -4,8 +4,7 @@ import src.characters.guards.guards.Guard
 
 
 class StaticGuard inherits Guard {
-    method image() = "static_guard.png"
-    
+
     override method comportamiento() {
         // Los guardias estáticos no se mueven
         // TODO: agregar rotación ocasional

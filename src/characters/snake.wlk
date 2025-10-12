@@ -19,6 +19,6 @@ object solidSnake{
   method canMove(pos) {
     // TODO: verificarColisiones(pos)
     return pos.x() >= 0 && pos.x() < game.width() && 
-            pos.y() >= 0 && pos.y() < game.height()
+            pos.y() >= 1 && pos.y() < game.height()
   }
 }

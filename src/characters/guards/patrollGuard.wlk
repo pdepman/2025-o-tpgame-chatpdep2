@@ -3,7 +3,6 @@ import wollok.game.* // Es necesario importar wollok.game.* cuando defino una cl
 import src.characters.guards.guards.Guard
 
 class PatrolGuard inherits Guard {
-    method image() = "patroll_guard.png"
     
     override method comportamiento() {
         // TODO: lógica de patrullaje
