@@ -1,3 +1,4 @@
+import src.system.colissions.*
 import src.characters.guards.patrollGuard.*
 import src.characters.guards.staticsGuard.*
 import src.system.system.*
@@ -27,7 +28,11 @@ class Area {
 
         // TODO: Agregar objetos
     }
-    method removeArea() { levels.clearGame() }
+
+    method guards() { return guards } 
+    method removeArea() { 
+        levels.clearGame()
+    }
 
     method addChangeEvent(event) {
         changeEvents.add(event)
