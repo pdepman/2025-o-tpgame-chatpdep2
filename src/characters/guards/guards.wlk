@@ -8,7 +8,7 @@ class Guard {
     var property direction = "down"
     var property state = "patrolling" // Por el momento no se va a utilizar...
     var property detectionRange = 3 // Idem
-    var property isColisionable = false 
+    var property canBeCollided = false
 
     method collidedForSnake() { console.println(self.toString() + " colisionado por Snake!")}
     method image() 
@@ -16,6 +16,10 @@ class Guard {
     // Método para inicializar posición
     method inicializarPosicion(_position) {
         position = _position
+    }
+
+    method canBeCollided(valor) {
+        canBeCollided = valor
     }
     
     method update() {

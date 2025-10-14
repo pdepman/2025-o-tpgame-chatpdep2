@@ -25,12 +25,14 @@ class Area {
 
         // Agrego los guardias (statics y patroll)
         guards.forEach { guard => game.addVisual(guard) }
+        colissionHandler.loadAread(self)
 
         // TODO: Agregar objetos
     }
 
     method guards() { return guards } 
     method removeArea() { 
+        colissionHandler.destroyArea(self)
         levels.clearGame()
     }
 

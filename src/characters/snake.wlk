@@ -8,8 +8,12 @@ object solidSnake{
   method image()="snake_"+self.lastMovement()+".png"
 
   method update() { } // TODO: Implementar
-  method collidedForStaticGuard(){
-    position = lastPosition
+  method collidedForStaticGuard(guard){
+    console.println("snake colisionó un guardia...")
+    if (guard.canBeCollided()){
+      position = lastPosition
+    }
+
   }
 
   method moveTo(nuevaPos) {
