@@ -1,10 +1,8 @@
 import src.system.colissions.*
-import src.characters.guards.patrollGuard.*
-import src.characters.guards.staticsGuard.*
+import src.gameObject.GameObject
+import src.characters.guards.*
 import src.system.system.*
 import wollok.game.*
-
-import src.characters.snake.*
 import src.system.visual.*
 import src.levels.areaManager.*
 
@@ -15,6 +13,7 @@ class Area {
     const property guards = [] // Lista de guardias
     var property name = ""
     const background // Imagen de fondo del area 
+    const invisibleObjects=[]
 
     method load() { 
         // Cargo el fondo del area
@@ -22,6 +21,7 @@ class Area {
 
         // Cargo a solidSnake
         game.addVisual(solidSnake)
+        self.addInvisibleObjects()
 
         // Agrego los guardias (statics y patroll)
         guards.forEach { guard => game.addVisual(guard) }
@@ -43,6 +43,10 @@ class Area {
     method checkAreaChange(character) {
         return changeEvents.findOrDefault({e => e.canCharacterChangeArea(character)}, null)
     }
+
+    method addInvisibleObjects(){
+        invisibleObjects.forEach({obj => game.addVisual(obj)})
+    }
 }
 
 // Instancias de areas del nivel 1
@@ -50,35 +54,52 @@ const area01 = new Area(
     background = area01BG,
     name = "Area 01",
     changeEvents = [goToArea02, goToArea03A, goToArea03B],
-    guards = [static01, patroll01]
+    guards = [static01, patroll01],
+    invisibleObjects=[invisible01]
 )
 
 const area02 = new Area(
     background = area02BG,
     name = "Area 02",
     changeEvents = [goToArea01],
-    guards = [static02, patroll02]
+    guards = [static02, patroll02],
+    invisibleObjects=[]
 )
 
 const area03 = new Area(
     background = area03BG,
     name = "Area 03",
-    changeEvents = [goToArea01A, goToArea01B],
+    changeEvents = [goToArea01A, goToArea01B],,
     guards = [static03A, static03B, patroll03]
+    invisibleObjects=[]
 )
 
 const area04 = new Area(
     background = area04BG,
     name = "Area 04",
-    changeEvents = [], // Agregar eventos de cambio de area
+    changeEvents = [],, // Agregar eventos de cambio de area
     guards = [patroll04A, patroll04B]
+    invisibleObjects=[] 
+    
 )
 
 const area05 = new Area(
     background = area05BG,
     name = "Area 05",
-    changeEvents = [] // Agregar eventos de cambio de area
+    changeEvents = [], // Agregar eventos de cambio de area
+    invisibleObjects=[]
 )
+
+class Invisible inherits GameObject{
+    override method image()=null
+    override method update()=null
+    override method esColisionable() = true
+}
+
+const invisible01 = new Invisible(
+    position=game.at(12,3)
+)
+
 
 /*
 object area01 {
