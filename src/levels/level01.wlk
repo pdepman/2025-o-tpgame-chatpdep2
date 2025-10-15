@@ -1,6 +1,9 @@
 import src.system.colissions.*
 import src.gameObject.GameObject
-import src.characters.guards.*
+import src.characters.guards.patrollGuard.*
+import src.characters.guards.staticsGuard.*
+
+import src.characters.snake.*
 import src.system.system.*
 import wollok.game.*
 import src.system.visual.*
@@ -69,16 +72,16 @@ const area02 = new Area(
 const area03 = new Area(
     background = area03BG,
     name = "Area 03",
-    changeEvents = [goToArea01A, goToArea01B],,
-    guards = [static03A, static03B, patroll03]
+    changeEvents = [goToArea01A, goToArea01B],
+    guards = [static03A, static03B, patroll03],
     invisibleObjects=[]
 )
 
 const area04 = new Area(
     background = area04BG,
     name = "Area 04",
-    changeEvents = [],, // Agregar eventos de cambio de area
-    guards = [patroll04A, patroll04B]
+    changeEvents = [], // Agregar eventos de cambio de area
+    guards = [patroll04A, patroll04B],
     invisibleObjects=[] 
     
 )

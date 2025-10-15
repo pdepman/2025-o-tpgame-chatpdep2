@@ -1,6 +1,4 @@
-import src.characters.guards.patrollGuard.*
-import src.characters.guards.staticsGuard.*
-import src.characters.snake.*
+import src.characters.*
 import src.levels.level01.*
 
 object colissionHandler {
@@ -32,4 +30,11 @@ object colissionHandler {
             guard => guard.canBeCollided(false)
         }
     }
+
+    method verifyColission(pos){
+        const colisiona=game.getObjectsIn(pos).any(
+			{ obj => obj.esColisionable() }
+		)
+    return colisiona
+  }
 }

@@ -20,7 +20,7 @@ object config {
     */
     const mainSound = game.sound("427513__carloscarty__chiptune-one.wav")
     mainSound.shouldLoop(true)
-    game.schedule(500, { mainSound.play()} )
+    game.schedule(1000, { mainSound.play()} )
   }
 }
 

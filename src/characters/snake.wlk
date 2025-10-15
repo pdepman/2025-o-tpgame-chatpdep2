@@ -1,3 +1,4 @@
+import src.system.colissions.*
 import src.levels.level01.*
 import src.levels.areaManager.areaManager
 object solidSnake{
@@ -36,13 +37,6 @@ object solidSnake{
   method canMove(pos) {
     // TODO: verificarColisiones(pos)
     return pos.x() >= 0 && pos.x() < game.width() && 
-            pos.y() >= 0 && pos.y() < game.height()&& !self.verifyColission(pos)
-  }
-
-  method verifyColission(pos){
-    const colisiona=game.getObjectsIn(pos).any(
-			{ obj => obj.esColisionable() }
-		)
-    return colisiona
+            pos.y() >= 0 && pos.y() < game.height()&& !colissionHandler.verifyColission(pos)
   }
 }
