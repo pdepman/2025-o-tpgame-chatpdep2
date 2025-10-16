@@ -1,5 +1,7 @@
 import src.characters.snake.solidSnake
 import wollok.game.*
+import src.system.colissions.colissionHandler
+
 
 /*
  * Definición base para todos los movimientos de todos los personajes.
@@ -30,4 +32,9 @@ object movement {
         character.lastMovement("right")
         character.moveTo(character.position().right(1))
     }
+
+    method canMove(pos) {
+        return pos.x() >= 0 && pos.x() < game.width() && 
+        pos.y() >= 0 && pos.y() < game.height()
+  }
 }

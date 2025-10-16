@@ -1,10 +1,11 @@
+import src.inputManager.movements.*
 import src.system.colissions.*
 import src.levels.level01.*
 import src.levels.areaManager.areaManager
 object solidSnake{
   var property position = game.origin()
   var property lastPosition = game.origin()
-  var property lastMovement = ""
+  var property lastMovement = "right"
 
   method image()="snake_"+self.lastMovement()+".png"
 
@@ -20,7 +21,7 @@ object solidSnake{
   method moveTo(newPos) {
     // Envío mensaja a collisionHandler
     // si no hay colisión, snake se mueve
-    if (self.canMove(newPos)) {
+    if (movement.canMove(newPos) && !colissionHandler.verifyColission(newPos)) {
       lastPosition = position
       position = newPos
     }
@@ -36,8 +37,4 @@ object solidSnake{
   //   }
   // }
   
-  method canMove(pos) {
-    return pos.x() >= 0 && pos.x() < game.width() && 
-        pos.y() >= 0 && pos.y() < game.height()&& !colissionHandler.verifyColission(pos)
-  }
   }
