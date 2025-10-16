@@ -1,5 +1,8 @@
+import src.system.colissions.*
 import src.characters.snake.solidSnake
 import wollok.game.*
+import src.inputManager.movements.*
+
 
 // Primeros test antes de refactorizar
 describe "Test Snake" {
@@ -14,13 +17,10 @@ describe "Test Snake" {
     }
 
     test "Snake no puede moverse fuera del mapa" {
-        const snake = solidSnake
-        snake.position(game.at(0,0))
-
         const target = game.at(-1,0)
-        const canMove = snake.canMove(target)
+        solidSnake.moveTo(target)
 
-        assert.notThat(canMove)
+        assert.notThat(movement.canMove(target))
     }
 
     test "La imagen del Snake refleja su último movimiento" {
