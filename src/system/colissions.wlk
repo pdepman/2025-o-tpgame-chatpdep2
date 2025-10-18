@@ -29,4 +29,13 @@ object colissionHandler {
         return game.getObjectsIn(pos).any(
 			{ obj => obj.esColisionable() })
     }
+
+    method processInteraction(character) {
+        const itemEnElPiso = game.getObjectsIn(character.position())
+                                .find({ obj => obj.esItem() })
+        if (itemEnElPiso != null) {
+            console.println("encontre el item")
+            itemEnElPiso.usar(character)
+        }
+    }
 }

@@ -5,4 +5,5 @@ class GameObject {
     method image() // Abstract - implementar en subclases
     method update() { } // TODO: Implementar
     method esColisionable() = false
+    method esItem() = false
 }

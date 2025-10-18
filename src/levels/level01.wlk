@@ -2,6 +2,7 @@ import src.system.colissions.*
 import src.gameObject.GameObject
 import src.characters.guards.patrollGuard.*
 import src.characters.guards.staticsGuard.*
+import src.item.items.boxItem.*
 import src.obstacles.invisibleObject.*
 
 
@@ -19,20 +20,22 @@ class Area {
     var property name = ""
     const background // Imagen de fondo del area 
     const invisibleObjects=[]
+    const items=[] // lista de items
 
     method load() { 
         // Cargo el fondo del area
         game.addVisual(background)
-
+        //cargo los objetos colisionables
+        self.addInvisibleObjects()
         // Cargo a solidSnake
         game.addVisual(solidSnake)
-        self.addInvisibleObjects()
-
+       
         // Agrego los guardias (statics y patroll)
         guards.forEach { guard => game.addVisual(guard) }
         colissionHandler.loadAread(self)
 
-        // TODO: Agregar objetos
+        // cargo los items del area
+        items.forEach({item=>game.addVisual(item)})
     }
 
     method guards() { return guards } 
@@ -59,8 +62,9 @@ const area01 = new Area(
     background = area01BG,
     name = "Area 01",
     changeEvents = [goToArea02, goToArea03A, goToArea03B],
-    guards = [static01, patroll01],
-    invisibleObjects=invisibleArea01
+    //guards = [static01, patroll01],
+    invisibleObjects=invisibleArea01,
+    items = [box1]
 )
 
 const area02 = new Area(
