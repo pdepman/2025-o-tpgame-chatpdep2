@@ -33,16 +33,4 @@ object movement {
         return pos.x() >= 0 && pos.x() < game.width() && 
         pos.y() >= 0 && pos.y() < game.height()
   }
-
-    method launchGuardsBehavior(){
-        game.onTick(500, "guardsBehavior", { self.updateGuardsBehavior() })
-    }
-
-    method updateGuardsBehavior() {
-        allRegisteredAreas.forEach { area =>
-            area.guards().forEach { guard =>
-                guard.update()
-            }
-        }
-    }
 }

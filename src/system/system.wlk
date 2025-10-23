@@ -1,4 +1,3 @@
-import src.inputManager.movements.movement
 import src.system.colissions.colissionHandler
 import src.inputManager.inputManager.keyboardManager
 import src.levels.level01.*
@@ -24,7 +23,7 @@ object config {
     colissionHandler.initialize()
 
     // Inicializo movimientos de los guardias
-    movement.launchGuardsBehavior()
+    areaManager.launchGuardsBehavior()
 
     // Inicializo levels
     levelsManager.loadIntro()

@@ -18,6 +18,18 @@ object areaManager {
         character.position(event.nextAreaPosition())
         //console.println(character.position()) // para debug
     }
+    
+    method launchGuardsBehavior(){
+        game.onTick(500, "guardsBehavior", { self.updateGuardsBehavior() })
+    }
+
+    method updateGuardsBehavior() {
+        allRegisteredAreas.forEach { area =>
+            area.guards().forEach { guard =>
+                guard.update()
+            }
+        }
+    }
 }
 
 /*
