@@ -25,7 +25,7 @@ object colissionHandler {
         }
     }
 
-    method verifyColission(pos){
+    method hasColissionAt(pos){
         return game.getObjectsIn(pos).any(
 			{ obj => obj.esColisionable() })
     }

@@ -25,7 +25,7 @@ class Guard {
     method moveTo(newPos) {
     // Envío mensaja a collisionHandler
     // si no hay colisión, snake se mueve
-    if (movement.canMove(newPos) && !colissionHandler.verifyColission(newPos)) {
+    if (movement.canMove(newPos) && !colissionHandler.hasColissionAt(newPos)) {
       lastPosition = position
       position = newPos
     }
