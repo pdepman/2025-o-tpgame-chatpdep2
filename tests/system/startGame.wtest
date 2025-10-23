@@ -14,14 +14,12 @@ import src.inputManager.inputManager.keyboardManager
         config.load()
 
         assert.equals("Metal Gear NES", game.title())
-        // assert.equals(64, game.cellSize()) // TODO: ver como testear cellSize
         assert.equals(12, game.height())
         assert.equals(20, game.width())
-        // assert.equals("black.png", game.boardGround()) // TODO: ver como testear boardGround
     }
 
     test "Start agrega visuales de inicio correctamente" {
-        levels.start()
+        levels.loadIntro()
         const visuals = game.allVisuals()
 
         assert.that(visuals.contains(start))

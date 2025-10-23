@@ -15,7 +15,6 @@ object config {
     game.cellSize(64)
     game.height(12)
     game.width(20)
-
     game.boardGround("black.png")
 
     // Inicializo el manejador de inputs
@@ -28,7 +27,7 @@ object config {
     movement.launchGuardsBehavior()
 
     // Inicializo levels
-    levels.start()
+    levels.loadIntro()
     // Música en loop
     /*
      * Chiptune One.wav by CarlosCarty -- https://freesound.org/s/427513/ -- License: Attribution 4.0
@@ -44,7 +43,7 @@ object levels {
   /*
    * Carga video inicial y espera input para iniciar nivel 1
   */
-  method start() {
+  method loadIntro() {
     self.clearGame()
     game.addVisual(start)
     game.addVisual(startMessage)
