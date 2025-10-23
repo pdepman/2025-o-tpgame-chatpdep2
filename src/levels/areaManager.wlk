@@ -23,7 +23,7 @@ object areaManager {
 /*
  * Manejador de areas y transiciones entre ellas
  */
-class ChangeAreaEvent {
+class ChangeAreaEvent { // Modifiqué el nombre Event
     const property currentArea // Area actual 
     const property position // posición de cambio entre areas
     const property nextDirection // "up", "down", "left", "right"

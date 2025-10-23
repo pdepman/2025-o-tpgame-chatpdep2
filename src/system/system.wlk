@@ -1,3 +1,6 @@
+import src.inputManager.movements.movement
+import src.system.colissions.colissionHandler
+import src.inputManager.inputManager.keyboardManager
 import src.levels.level01.*
 import wollok.game.*
 import src.characters.snake.*
@@ -14,6 +17,18 @@ object config {
     game.width(20)
 
     game.boardGround("black.png")
+
+    // Inicializo el manejador de inputs
+    keyboardManager.initKeyboard()
+
+    // Iniciliazo el manejador de colisiones
+    colissionHandler.initialize()
+
+    // Inicializo movimientos de los guardias
+    movement.launchGuardsBehavior()
+
+    // Inicializo levels
+    levels.start()
     // Música en loop
     /*
      * Chiptune One.wav by CarlosCarty -- https://freesound.org/s/427513/ -- License: Attribution 4.0
