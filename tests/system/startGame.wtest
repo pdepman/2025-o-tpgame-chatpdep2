@@ -27,6 +27,7 @@ import src.inputManager.inputManager.keyboardManager
     }
 
     test "loadLevel1 limpia el tablero y coloca Snake correctamente" {
+        config.load()
         levelsManager.loadLevel1()
 
         assert.equals(game.at(13,1), solidSnake.position())

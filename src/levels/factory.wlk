@@ -3,79 +3,88 @@ import src.levels.tilemap.*
 
 object areaFactory {
     const match_tile = new Dictionary()
-    var property newObjectPosition = game.origin()
 
     method initializeMatchTile() {
-        match_tile.put(tileTypes.empty(), null)
-        match_tile.put(tileTypes.staticGuard(), { self.createStaticGuard() })
-        match_tile.put(tileTypes.patrolGuard(), {self.createPatrolGuard()})
-        match_tile.put(tileTypes.door(), {self.createDoor()})
-        match_tile.put(tileTypes.box(), {self.createBox()})
-        match_tile.put(tileTypes.redKey(), {self.createRedKey()})
-        match_tile.put(tileTypes.blueKey(), {self.createBlueKey()})
-        match_tile.put(tileTypes.weapon(), {self.createWeapon()})
-        match_tile.put(tileTypes.health(), {self.createHealth()})
-        match_tile.put(tileTypes.collision(), {self.createInvisibleCollision()})
+        match_tile.put(tileTypes.empty(), { pos => self.empty(pos) })
+        match_tile.put(tileTypes.staticGuard(), { pos => self.createStaticGuard(pos) })
+        match_tile.put(tileTypes.patrolGuard(), { pos => self.createPatrolGuard(pos) })
+        match_tile.put(tileTypes.door(), { pos => self.createDoor(pos) })
+        match_tile.put(tileTypes.box(), { pos => self.createBox(pos) })
+        match_tile.put(tileTypes.redKey(), { pos => self.createRedKey(pos) })
+        match_tile.put(tileTypes.blueKey(), { pos => self.createBlueKey(pos) })
+        match_tile.put(tileTypes.weapon(), { pos => self.createWeapon(pos) })
+        match_tile.put(tileTypes.health(), { pos => self.createHealth(pos) })
+        match_tile.put(tileTypes.collision(), { pos => self.createInvisibleCollision(pos) })
     }
 
-    method createFromMatrix(tileMatrix){
-        // Inicializo valores posición
-        const posX = 0
-        const posY = tileMatrix.size() - 1
-        tileMatrix.forEach { fila => fila.forEach({ tile =>
-            newObjectPosition = game.at(posX, posY)
-            const newObject = self.createNewObjectFromMatrix(tile)
-            posX++
-            posY--
+    method createFromMatrix(tileMatrix) {
+        const totalRows = tileMatrix.size()
+        var y = 0
 
-            if (!newObject)
-            {
-                game.addVisual(newObject)
+        tileMatrix.forEach { fila =>
+            var x = 0
+            var y = (totalRows - 1) - y
+
+            fila.forEach { tile =>
+                const pos = game.at(x, y)
+                self.createNewObjectFromMatrix(tile, pos)
+                x = x + 1
             }
-        })}
+
+            y = y + 1
+        }
     }
 
     // Recibo como parámetro "que" y "en que posición"
-    method createNewObjectFromMatrix(tile){
+    method createNewObjectFromMatrix(tile, pos){
         const newTile = match_tile.basicGet(tile)
-        newTile.apply()
+        if (newTile == null) {
+            console.println("Tile desconocido: " + tile + " en posición " + pos)
+            return
+        }
+        newTile.apply(pos)
+        return
     }
 
     // Métodos particulares para instaniar los objetos
-    method createStaticGuard(){
-        console.println("create StaticGuard!\n")
+    method createStaticGuard(pos){
+        console.println("create StaticGuard!\nPosition: " + pos)
     } 
 
-    method createPatrolGuard(){
-        console.println("create PatrolGuard!\n")
+    method createPatrolGuard(pos){
+        console.println("create PatrolGuard!\nPosition: " + pos)
     }
 
-    method createDoor(){
-        console.println("create Door!\n")
+    method createDoor(pos){
+        console.println("create Door!\nPosition: " + pos)
     }
 
-    method createBox(){
-        console.println("create Box!\n")
+    method createBox(pos){
+        console.println("create Box!\nPosition: " + pos)
     }
 
-    method createRedKey(){
-        console.println("create Red Key!\n")
+    method createRedKey(pos){
+        console.println("create Red Key!\nPosition: " + pos)
     }
 
-    method createBlueKey(){
-        console.println("create Blue Key!\n")
+    method createBlueKey(pos){
+        console.println("create Blue Key!\nPosition: " + pos)
     }
 
-    method createWeapon(){
-        console.println("create Weapon!\n")
+    method createWeapon(pos){
+        console.println("create Weapon!\nPosition: " + pos)
     }
 
-    method createHealth(){
-        console.println("create Healt!\n")
+    method createHealth(pos){
+        console.println("create Healt!\nPosition: " + pos)
     }
 
-    method createInvisibleCollision(){
-        console.println("create Invisible Collision!\n")
+    method createInvisibleCollision(pos){
+        console.println("create Invisible Collision!\nPosition: " + pos)
     } 
+
+    method empty(pos) {
+        console.println("Empty space at " + pos)
+    }
         
 }

@@ -9,7 +9,7 @@ object tileTypes {
     const property door = "D"           // Puerta (changeEvent XD)
     const property box = "B"            // Caja con powerUp
     const property redKey = "R"         // Llave roja
-    const property blueKey = "B"        // Llave azul
+    const property blueKey = "K"        // Llave azul
     const property weapon = "W"         // Arma
     const property health = "H"         // Health kit
     const property collision = "C"      // Colisión invisible

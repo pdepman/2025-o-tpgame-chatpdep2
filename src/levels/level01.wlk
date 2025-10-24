@@ -1,8 +1,10 @@
+import src.levels.factory.*
 import src.system.colissions.*
 import src.gameObject.GameObject
 import src.characters.guards.patrollGuard.*
 import src.characters.guards.staticsGuard.*
 import src.obstacles.invisibleObject.*
+import src.levels.tilemap.*
 
 
 import src.characters.snake.*
@@ -14,6 +16,7 @@ import src.levels.areaManager.*
 // Defino las areas del nivel
 // Ver si conviene hacer una clase abstracta Area y que las areas hereden de ella
 class Area {
+    const property tileMatrix = []
     const property changeEvents = [] // Lista de eventos de cambio de area
     const property guards = [] // Lista de guardias
     var property name = ""
@@ -33,6 +36,7 @@ class Area {
         colissionHandler.loadAread(self)
 
         // TODO: Agregar objetos
+        areaFactory.createFromMatrix(tileMatrix)
     }
 
     method guards() { return guards } 
@@ -60,7 +64,8 @@ const area01 = new Area(
     name = "Area 01",
     changeEvents = [goToArea02, goToArea03A, goToArea03B],
     guards = [static01, patroll01],
-    invisibleObjects=invisibleArea01
+    invisibleObjects=invisibleArea01,
+    tileMatrix = tileMapArea01
 )
 
 const area02 = new Area(

@@ -1,3 +1,4 @@
+import src.levels.factory.*
 import src.system.colissions.colissionHandler
 import src.inputManager.inputManager.keyboardManager
 import src.levels.level01.*
@@ -24,6 +25,9 @@ object config {
 
     // Inicializo movimientos de los guardias
     areaManager.launchGuardsBehavior()
+
+    // Inicializo matriz para factory
+    areaFactory.initializeMatchTile()
 
     // Inicializo levels
     levelsManager.loadIntro()
