@@ -29,7 +29,7 @@ class PatrollGuard inherits Guard {
     
 }
 
-// Instancio guardias de nivel 01
+/* // Instancio guardias de nivel 01
 
 // Area01
 const patroll01 = new PatrollGuard (position = game.at(5,9), lastPosition = game.at(5,9))
@@ -43,3 +43,4 @@ const patroll03 = new PatrollGuard (position = game.at(4,5), lastPosition = game
 // Area04
 const patroll04A = new PatrollGuard (position = game.at(6,10), lastPosition = game.at(6,10))
 const patroll04B = new PatrollGuard (position = game.at(14,3), lastPosition = game.at(14,3))
+ */

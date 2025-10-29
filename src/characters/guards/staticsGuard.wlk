@@ -16,7 +16,7 @@ class StaticGuard inherits Guard {
  * por el momento, los guardias no mantienen "estado", igualmente los separo por area.
  * TODO: Handler que maneje el estado de todos los guardias y haga el update cuando carga el area.
  */
-// Area01
+/* // Area01
 const static01 = new StaticGuard (position = game.at(1,1), lastPosition = game.at(1,1))
 
 // Area02
@@ -24,4 +24,4 @@ const static02 = new StaticGuard (position = game.at(18,10), lastPosition = game
 
 // Area03
 const static03A = new StaticGuard (position = game.at(9,3), lastPosition = game.at(9,3))
-const static03B = new StaticGuard (position = game.at(2,10), lastPosition = game.at(2,10))
+const static03B = new StaticGuard (position = game.at(2,10), lastPosition = game.at(2,10)) */

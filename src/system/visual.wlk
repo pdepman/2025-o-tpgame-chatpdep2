@@ -7,6 +7,15 @@ import wollok.game.*
 class Visual {
 	var property image
 	var property position = game.origin()
+    var canBeCollided = false
+
+    method collidedForGuard(guard) {
+      // Los fondos no reaccionan a colisiones
+    }
+
+        method canBeCollided(valor) {
+        canBeCollided = false
+    }
 }
 
 // Inicio
