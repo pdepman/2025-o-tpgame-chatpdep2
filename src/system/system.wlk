@@ -18,44 +18,35 @@ object config {
         console.println("║       METAL GEAR NES - INICIANDO       ║")
         console.println("╚════════════════════════════════════════╝")
         
-        // 1. Configuraciones globales del juego
         game.title("Metal Gear NES")
         game.cellSize(64)
         game.height(12)
         game.width(20)
         game.boardGround("black.png")
-        
-        // 2. CRÍTICO: Pre-instanciar TODOS los objetos del nivel
-        //    Esto toma 1-2 segundos PERO solo se hace UNA vez
-        console.println("\n[1/6] Pre-creando objetos del nivel...")
+
+        console.println("[1/7] Inicializando Object Pool")
         objectPool.initializeLevel01()
-        
-        // 3. Inicializar sistemas
-        console.println("\n[2/6] Inicializando sistema de colisiones...")
-        colissionHandler.initializeAll(objectPool.getAllObjects())
-        
-        console.println("[3/6] Inicializando controles de teclado...")
+
+        console.println("[2/7] Activando área inicial")
+        objectPool.activateArea("area01")
+
+        console.println("[3/7] Inicializando CollisionHandler")
+        colissionHandler.initialize()
+
+        console.println("[4/7] Cargando colisiones de otras áreas en background")
+        game.schedule(2000, { objectPool.loadOtherAreasCollisionsAsync("area01") })
+
+        console.println("[5/7] Inicializando controles de teclado")
         keyboardManager.initKeyboard()
-        
-        console.println("[4/6] Inicializando comportamiento de guardias...")
+
+        console.println("[6/7] Inicializando guardias")
         areaManager.launchGuardsBehavior()
-        
-        // 4. Cargar intro
-        console.println("[5/6] Cargando pantalla de inicio...")
+
+        console.println("[7/7] Cargando intro")
         levelsManager.loadIntro()
-        
-        // 5. Música
-        console.println("[6/6] Iniciando música...")
-        const mainSound = game.sound("427513__carloscarty__chiptune-one.wav")
-        mainSound.shouldLoop(true)
-        game.schedule(1000, { mainSound.play() })
-        
-        console.println("\n╔════════════════════════════════════════╗")
-        console.println("║             ¡JUEGO LISTO!              ║")
-        console.println("╚════════════════════════════════════════╝\n")
-        
-        // Debug: Mostrar estadísticas
-        objectPool.printStats()
+
+
+        console.println("¡Juego listo!")
     }
 }
 /*
