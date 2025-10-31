@@ -48,7 +48,7 @@ object gameCurrentStatus {
      */
     method isBlocked(pos) {
         const x = pos.x()
-        const y = pos.y()        
+        const y = currentTileMap.size() - 1 - pos.y()
         
         const row = currentTileMap.get(y)
         
