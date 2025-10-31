@@ -8,10 +8,10 @@ object areaFactory {
 
     method initializeMatchTile() {
         match_tile.put(tileTypes.empty(), { pos => null })
-        match_tile.put(tileTypes.staticGuard(), { pos => new StaticGuard(position = pos) })
-        match_tile.put(tileTypes.patrolGuard(), { pos => new PatrollGuard(position = pos) })
+        match_tile.put(tileTypes.staticGuard(), { pos => new StaticGuard(position = pos, isCollidable = true) })
+        match_tile.put(tileTypes.patrolGuard(), { pos => new PatrollGuard(position = pos, isCollidable = true) })
         match_tile.put(tileTypes.door(), { pos => null }) // Las puertas se manejan aparte
-        match_tile.put(tileTypes.box(), { pos => new Box(position = pos) })
+        match_tile.put(tileTypes.box(), { pos => new Box(position = pos, isCollidable = true) })
         match_tile.put(tileTypes.redKey(), { pos => new RedKey(position = pos) })
         match_tile.put(tileTypes.blueKey(), { pos => new BlueKey(position = pos) })
         match_tile.put(tileTypes.weapon(), { pos => new Weapon(position = pos) })

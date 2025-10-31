@@ -38,8 +38,9 @@ object objectPool {
         const areaObjects = objectsByArea.get(areaName)
         areaObjects.forEach ({ obj => 
             obj.activate()
+            colissionHandler.register(obj)
             game.addVisual(obj) 
-        })
+        })    
         
         console.println("Área " + areaName + " activada (" + areaObjects.size() + " objetos)")
     }
@@ -48,6 +49,7 @@ object objectPool {
         const areaObjects = objectsByArea.get(areaName)
         areaObjects.forEach { obj =>
             obj.deactivate()
+            colissionHandler.unregister(obj)
             game.removeVisual(obj)
         }
         console.println("Área " + areaName + " desactivada")

@@ -7,19 +7,22 @@ import src.levels.level01.*
  * Se instancian todas las colisiones al inicio del juego para minimizar lag
  */
 object colissionHandler {
-    const collidableObjects = []
+
+    const registered = []
 
     method register(obj) {
-        if (obj == null || !obj.canBeCollided()) { return }
+        if (obj != null && obj.isCollidable() && !registered.contains(obj)) {
+            registered.add(obj)
+            game.whenCollideDo(obj, { gameObject => gameObject.collidedBy(obj) })
+        }
+    }
 
-        collidableObjects.add(obj)
+    method unregister(obj) {
+        if (registered.contains(obj)) registered.remove(obj)
+    }
 
-        game.whenCollideDo(obj, { other =>
-            obj.collidedBy(other)
-            other.collidedBy(obj)
-        })
-
-        console.println("Registrado para colisión: " + obj.className())
-        return
+    method clear() {
+        registered.clear()
     }
 }
+

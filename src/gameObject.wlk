@@ -11,15 +11,20 @@ import wollok.game.*
 class GameObject {
     var position
     var isActive = false
+    var isCollidable = false
+    var isPickable = false
     var canBeCollided = false 
     
     method image() // Abstract - debe implementarse en subclases
 
-    method position(pos) { position = pos }
+    // getters y setters
     method position() = position
-
     method isActive() = isActive
-    method canBeCollided() = canBeCollided    
+    method canBeCollided() = canBeCollided
+    method isCollidable() = isCollidable
+    method isPickable() = isPickable
+
+    method position(pos) { position = pos }
     method canBeCollided(valor) { canBeCollided = valor }
 
     // Activa lógicamente el objeto
