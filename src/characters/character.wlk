@@ -22,18 +22,11 @@ class Character inherits GameObject {
      * Valida límites del tablero y colisiones antes de mover
      */
     method moveTo(newPos) {
-        if (self.canMoveTo(newPos)) {
+        if (movement.canMove(newPos)) {
             lastPosition = position
             position = newPos
             self.onPositionChanged()
         }
-    }
-    
-    /*
-     * Verifica si el personaje puede moverse a una posición valida
-     */
-    method canMoveTo(newPos) {
-        return movement.canMove(newPos)
     }
     
     /*
