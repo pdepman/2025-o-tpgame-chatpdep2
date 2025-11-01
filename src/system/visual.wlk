@@ -48,3 +48,13 @@ const area05BG = new Visual(
     image = "level01-05.png",
     position = game.origin()
 )
+
+const pauseScreen = new Visual(
+    image = "paused.png",
+    position = game.at(4,3)
+)
+
+const gameOverScreen = new Visual(
+    image = "GAME_OVER.png",
+    position = game.at(4,3)
+)

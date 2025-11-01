@@ -1,3 +1,4 @@
+import src.gameManager.*
 import src.system.gameStatus.*
 import src.inputManager.movements.*
 import src.system.system.*
@@ -22,21 +23,30 @@ object keyboardManager {
         })
         keyboard.down().onPressDo({ 
             movement.moveDown(solidSnake)
-    })
+        })
         keyboard.left().onPressDo({ 
             movement.moveLeft(solidSnake)
-    })
+        })
         keyboard.right().onPressDo({ 
             movement.moveRight(solidSnake)
-    })
+        })
 
         // Iniciar nivel 1 desde pantalla inicial
         keyboard.space().onPressDo({ 
             if(game.hasVisual(start)) { levelsManager.loadLevel1() } 
+            if(gameManager.isGameOver()) { gameManager.restartGame() }  
         })
         
         keyboard.f().onPressDo( {
-        solidSnake.equipItem()
-    })
+            solidSnake.equipItem()
+        })
+
+        keyboard.p().onPressDo( {
+            gameManager.togglePause()
+        })
+
+        // TODO: implementar función de salir del juego
+        keyboard.q().onPressDo( {  })
+
     }
 }

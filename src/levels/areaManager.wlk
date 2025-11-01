@@ -1,4 +1,4 @@
-import src.objectPool.*
+import src.system.objectPool.objectPool
 import src.system.gameStatus.gameCurrentStatus
 import src.levels.level01.*
 

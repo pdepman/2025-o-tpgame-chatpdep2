@@ -1,3 +1,4 @@
+import src.gameManager.gameManager
 import src.characters.character.Character
 import src.inputManager.movements.*
 import src.system.colissions.*
@@ -10,6 +11,7 @@ import src.levels.areaManager.areaManager
  */
 class Snake inherits Character {
     var currentItem = null
+    var equipment = []
     override   method image() {
         if (currentItem != null) {
             return currentItem.image()
@@ -33,6 +35,7 @@ class Snake inherits Character {
     override method collidedBy(other) {
         console.println("Snake collided with: " + other.className())
         if (other.isActive() && other.canBeCollided()) {
+            self.takeDamage(20)
             position = lastPosition
         }
         // TODO: si el objeto es un guardia, Snake pierde vida o muere (detección)
@@ -42,9 +45,7 @@ class Snake inherits Character {
     
     override method die() {
         super()
-        console.println("GAME OVER")
-        // TODO: Mostrar pantalla de game over
-        // TODO: Reproducir sonido de muerte
+        gameManager.gameOver()
     }
     
     // TODO: Métodos adicionales específicos de Snake (usar objetos, agacharse, etc.)

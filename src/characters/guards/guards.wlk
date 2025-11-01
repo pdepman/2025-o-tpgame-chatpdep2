@@ -9,9 +9,7 @@ class Guard inherits Character {
 
     // Queda "genérico", ver si directamente lo personalizamos a snake...
     override method collidedBy(other) {
-        if (other.className() == "Snake") {
-            other.takeDamage(50)
-        }
+        other.takeDamage(50)    
     }
 
     override method update() {

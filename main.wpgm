@@ -1,4 +1,4 @@
-import wollok.game.*
+import src.gameManager.gameManager
 import src.system.system.*
 
 program MetalGearNES {
@@ -6,6 +6,6 @@ program MetalGearNES {
 	config.load()
 
 	// Inicio juego
-	game.start()
+	gameManager.startGame()
 }
 	

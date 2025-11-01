@@ -1,6 +1,6 @@
+import src.system.objectPool.objectPool
 import src.system.colissions.colissionHandler
 import src.characters.snake.solidSnake
-import src.objectPool.objectPool
 import src.levels.areaManager.*
 import src.system.visual.*
 
