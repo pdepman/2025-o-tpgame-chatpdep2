@@ -37,13 +37,7 @@ class Snake inherits Character {
     /*
      * Colisión con otros objetos
      */
-    override method collidedBy(other) {
-        console.println("Snake collided with: " + other.className())
-        if (other.isActive() && other.canBeCollided()) {
-            self.takeDamage(20)
-            position = lastPosition
-        }
-    }
+    // Por ahora no justifica override metodo collidedBy(other)
 
     override method takeDamage(amount) {
         var finalDamage = amount

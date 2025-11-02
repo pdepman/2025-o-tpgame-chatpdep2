@@ -21,6 +21,11 @@ object heart {
     }
 }
 
+const bullet = new Visual(
+    image = "bullets.gif",
+    position = game.origin()
+)
+
 // Inicio
 const start = new Visual(
 	image = "intro.gif",

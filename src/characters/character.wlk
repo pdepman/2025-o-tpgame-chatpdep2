@@ -16,6 +16,8 @@ class Character inherits GameObject {
     var property health = 100
     var property isAlive = true
     var property movementSpeed = 1 // Tiles por movimiento
+
+    method lastMovement() = lastMovement
     
     /*
      * Método común para mover personajes con validación de colisiones
@@ -64,9 +66,15 @@ class Character inherits GameObject {
 
     
     /*
-     * Manejo de colisiones - Polimórfico
+     * Manejo de colisiones
      */
-    override method collidedBy(other) {
-        console.println(self.className() + " colisionó con " + other.className())
+    method collidedBy(other) {
+        if (other.isActive() && other.canBeCollided()) {
+            self.takeDamage(20)
+            if(!other.className().contains("Bullet")){
+                position = lastPosition
+            }
+
+        }
     }
 }

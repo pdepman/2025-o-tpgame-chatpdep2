@@ -1,3 +1,4 @@
+import src.items.bullet.bulletManager
 import src.gameObject.GameObject
 
 class Pickable inherits GameObject {
@@ -56,11 +57,17 @@ class Key inherits Pickable {
 
 
 class Weapon inherits Pickable {
+    var bullets = bulletManager.takeBullets()
     override method image() = "weapon.png"
+
 
     override method beUse(character) {
         console.println("Snake dispara su arma. ¡Bang! ¡Bang!... estás liquidado")
-        // A futuro: buscar enemigos cercanos, restar munición, etc.
+        bulletManager.fire(
+            character.position(), 
+            character.lastMovement(),
+            bullets
+        )
     }
 }
 

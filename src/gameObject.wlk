@@ -39,9 +39,6 @@ class GameObject {
         isActive = false
     }
 
-    // Hook: define qué ocurre si otro objeto colisiona con este
-    method collidedBy(character) {}
-
     // Hook: actualización por frame o tick
     method update() {}
 }

@@ -1,3 +1,4 @@
+import src.items.bullet.bulletManager
 import src.ui.hud.hud
 import src.system.objectPool.objectPool
 import src.levels.factory.*
@@ -37,6 +38,9 @@ object config {
 
     // Inicializo movimientos de los guardias
     areaManager.launchGuardsBehavior()
+
+    // Inicializo gestión de balas
+    bulletManager.init()
 
     // Inicializo levels
     levelsManager.loadIntro()
