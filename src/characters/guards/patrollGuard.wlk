@@ -1,10 +1,14 @@
 import src.inputManager.movements.*
-import wollok.game.* // Es necesario importar wollok.game.* cuando defino una clase?
 
 import src.characters.guards.guards.Guard
 
 class PatrollGuard inherits Guard {
-    override method image() = "patroll_guard.png"
+    override method image() {
+        if(isAlive){
+            return "patroll_guard.png"
+        }
+        return "dead_guard.png"
+    }
     
     override method move() {
         const nextMove = self.getMovement()
