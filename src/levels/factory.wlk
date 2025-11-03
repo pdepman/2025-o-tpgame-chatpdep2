@@ -1,3 +1,4 @@
+import src.items.winner.Winner
 import src.utils.log.log
 import src.characters.guards.staticsGuard.*
 import src.characters.guards.patrollGuard.*
@@ -18,6 +19,7 @@ object areaFactory {
         match_tile.put(tileTypes.weapon(), { pos => new Weapon(position = pos) })
         match_tile.put(tileTypes.health(), { pos => new Health(position = pos) })
         match_tile.put(tileTypes.collision(), { pos => null })
+        match_tile.put(tileTypes.winner(), { pos => new Winner(position = pos) })
         log.debug(self, "MatchTile cargado")
     }
 

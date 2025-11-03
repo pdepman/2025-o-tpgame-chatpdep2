@@ -47,13 +47,16 @@ class Character inherits GameObject {
      * Sistema de vida
      */
     method takeDamage(amount) {
-        health = (health - amount).max(0)
-        log.debug(self, utils.getClassName(self) + " recibió " + amount + " de daño. Vida: " + health)
-        
-        if (health <= 0) {
-            self.die()
-        }
+        if(isAlive){
+            health = (health - amount).max(0)
+            log.debug(self, utils.getClassName(self) + " recibió " + amount + " de daño. Vida: " + health)
+            
+            if (health <= 0) {
+                self.die()
+            }
+        }      
     }
+
     
     method heal(amount) {
         health = (health + amount).min(100)

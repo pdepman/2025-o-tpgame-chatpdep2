@@ -33,6 +33,15 @@ object gameManager {
     }
 
     // --------------------
+    // Winner
+    // --------------------
+    method winner(character) {        
+        isGameOver = true
+        log.info(self, "Congratulations! You won this game!")
+        game.addVisual(winnerScreen)
+    }
+
+    // --------------------
     // Pausa / Reanudar
     // --------------------
     method togglePause() {

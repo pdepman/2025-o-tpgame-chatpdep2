@@ -72,3 +72,8 @@ const gameOverScreen = new Visual(
     image = "GAME_OVER.png",
     position = game.at(4,3)
 )
+
+const winnerScreen = new Visual(
+    image = "GAME_OVER.png",
+    position = game.at(4,3)
+)

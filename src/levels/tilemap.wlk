@@ -3,16 +3,17 @@
  * ENUMS/CONSTANTES - Tipos de Tiles
 */
 object tileTypes {
-    const property empty = "."          // Espacio vacío
-    const property staticGuard = "G"    // Guardia estático
-    const property patrolGuard = "P"    // Guardia patrulla
-    const property door = "D"           // Puerta (changeEvent XD)
-    const property box = "B"            // Caja con powerUp
-    const property redKey = "R"         // Llave roja
-    const property blueKey = "K"        // Llave azul
-    const property weapon = "W"         // Arma
-    const property health = "H"         // Health kit
-    const property collision = "C"      // Colisión invisible
+    const property empty = "."           // Espacio vacío
+    const property staticGuard = "G"     // Guardia estático
+    const property patrolGuard = "P"     // Guardia patrulla
+    const property door = "D"            // Puerta (changeEvent XD)
+    const property box = "B"             // Caja con powerUp
+    const property redKey = "R"          // Llave roja
+    const property blueKey = "K"         // Llave azul
+    const property weapon = "W"          // Arma
+    const property health = "H"          // Health kit
+    const property collision = "C"       // Colisión invisible
+    const property winner = "X"          // Winner
 }
 
 // Template del tablero -No borrar- Tiene definidas filas y columnas
@@ -78,9 +79,9 @@ const tileMapArea03 = [
 ]
 
 const tileMapArea04 = [
+    ["C","C",".","K","C","C","C","C","C","C",".",".","C","C","C","C","C","C","C","C"],
     ["C","C",".",".","C","C","C","C","C","C",".",".","C","C","C","C","C","C","C","C"],
-    ["C","C",".",".","C","C","C","C","C","C",".",".","C","C","C","C","C","C","C","C"],
-    [".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","H","."],
     [".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","."],
     [".","C","C","C",".","C","C","C",".","C","C","C",".","C","C",".",".",".",".","."],
     [".","C","C","C",".","C","C","C",".","C","C","C",".","C","C",".",".",".",".","."],
@@ -94,17 +95,17 @@ const tileMapArea04 = [
 
 // #### CAMBIAR EL 05 ####
 const tileMapArea05 = [
-    [".","C","C","C","D","C","C","C","D","C","C","C",".",".",".",".",".",".",".","."],
-    [".","C","C","C",".","C","C","C",".","C","C","C",".",".",".",".",".",".",".","."],
-    [".",".",".",".","G",".",".",".",".",".",".",".",".",".",".",".",".",".",".","D"],
-    [".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","C","C","C","C"],
-    [".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","C","C","C","C"],
-    [".","C","C","C",".","C","C","C",".",".",".","C","C","C",".",".","C","C","C","C"],
-    [".","C","C","C",".","C","C","C",".",".",".","C","C","C",".",".",".",".",".","D"],
-    [".","C","C","C",".","C","C","C",".",".",".","C","C","C",".",".",".",".","C","C"],
-    [".",".",".",".",".",".",".",".","P",".",".",".",".",".",".",".",".",".","C","C"],
-    [".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","."],
-    [".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".","."],
+    ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"],
+    ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".",".",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".",".",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".",".",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".",".",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".",".",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".","X",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".",".",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C",".",".",".",".",".",".",".",".",".",".","C","C","C","C","C"],
+    ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"],
     ["C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C","C"]
 ]
 
