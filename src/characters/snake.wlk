@@ -27,14 +27,7 @@ class Snake inherits Character {
         }
     }
    override method image() = "snake_" + self.currentItemName() + "_" + self.lastMovement() + ".png"
-/*     override   method image() {
-        if (currentItem != null || utils.getClassName(currentItem) == "DoorKey") {
-            return currentItem.image()
-        } else {
-            return "snake_" + self.lastMovement() + ".png"
-        }
-    } */
-    
+
     /*
      * Hook: Se ejecuta después de cambiar de posición
      */

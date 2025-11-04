@@ -1,5 +1,5 @@
 import src.utils.log.*
-import src.ui.visual.heart
+import src.ui.visual.*
 import wollok.game.*
 
 object hud {
@@ -7,12 +7,16 @@ object hud {
     var currentHearts = []
 
     method initHUD() {
-        fullHearts.add(heart.create(game.at(2, 0)))
+        [2,3,4,5,6].forEach { i =>
+            fullHearts.add(heart.create(game.at(i, 0)))
+        }
+/*         fullHearts.add(heart.create(game.at(2, 0)))
         fullHearts.add(heart.create(game.at(3, 0)))
         fullHearts.add(heart.create(game.at(4, 0)))
         fullHearts.add(heart.create(game.at(5, 0)))
-        fullHearts.add(heart.create(game.at(6, 0)))
+        fullHearts.add(heart.create(game.at(6, 0))) */
         currentHearts = fullHearts.take(5)
+        game.addVisual(snake_hud)
         log.debug(self, "Inicializado correctamente")
     }
 
