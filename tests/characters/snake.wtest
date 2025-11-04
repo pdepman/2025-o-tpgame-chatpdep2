@@ -27,7 +27,7 @@ describe "Test Snake" {
         const snake = solidSnake
         snake.lastMovement("left")
 
-        assert.equals("snake_left.png", snake.image())
+        assert.equals("snake_empty_left.png", snake.image())
     }
 
 }
