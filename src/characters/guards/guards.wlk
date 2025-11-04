@@ -1,45 +1,32 @@
+import src.utils.utils.utils
+import src.characters.character.Character
 import src.system.colissions.colissionHandler
 import src.inputManager.movements.movement
-import wollok.game.* // Es necesario importar wollok.game.* cuando defino una clase?
 
 /*
  * Clase abstracta Guard, de ella heredan las clases de los distintos tipos de guardias
  */
-class Guard {
-    var property position
-    var property lastPosition
-    var property direction = "down"
-    var property lastMovement = "right"
-    var property state = "patrolling" // Por el momento no se va a utilizar...
-    var property detectionRange = 3 // Idem
-    var property canBeCollided = false
-
-    method collidedForSnake() { console.println(self.toString() + " colisionado por Snake!")}
-    method image() 
-
-    method canBeCollided(valor) {
-        canBeCollided = valor
+class Guard inherits Character {
+    override method image() {
+        if(isAlive){
+            return utils.getClassName(self) + ".png"
+        }
+        return "dead_guard.png"
     }
 
-    method esColisionable() = true
-
-    method moveTo(newPos) {
-    // Envío mensaja a collisionHandler
-    // si no hay colisión, snake se mueve
-    if (movement.canMove(newPos) && !colissionHandler.verifyColission(newPos)) {
-      lastPosition = position
-      position = newPos
+    // Queda "genérico", ver si directamente lo personalizamos a snake...
+    override method collidedBy(other) {
+        other.takeDamage(50)    
     }
+
+    override method update() {
+        if (isAlive && isActive) {
+            self.move()
+        }
     }
     
-    method update() {
-        self.move()
-        self.verifyDetection()
-        self.updateState()
-    }
-    // Comportamiento polimórfico (Interfaz)
-    method move() // Implementado en subclases    
+    // Comportamiento polimórfico (Interfaz) 
+    method move()
     method verifyDetection() // Lógica para detectar al jugador    
     method updateState() // Lógica para actualizar el estado    
-
 }

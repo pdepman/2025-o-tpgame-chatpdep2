@@ -1,102 +1,99 @@
-import src.system.colissions.*
-import src.gameObject.GameObject
-import src.characters.guards.patrollGuard.*
-import src.characters.guards.staticsGuard.*
-import src.item.items.boxItem.*
-import src.obstacles.invisibleObject.*
-
-
-import src.characters.snake.*
-import src.system.system.*
-import wollok.game.*
-import src.system.visual.*
+import src.utils.log.log
+import src.ui.hud.hud
+import src.system.objectPool.objectPool
+import src.system.colissions.colissionHandler
+import src.characters.snake.solidSnake
 import src.levels.areaManager.*
+import src.ui.visual.*
 
-// Defino las areas del nivel
-// Ver si conviene hacer una clase abstracta Area y que las areas hereden de ella
+
 class Area {
-    const property changeEvents = [] // Lista de eventos de cambio de area
-    const property guards = [] // Lista de guardias
-    var property name = ""
-    const background // Imagen de fondo del area 
-    const invisibleObjects=[]
-    const items=[] // lista de items
-
-    method load() { 
-        // Cargo el fondo del area
+    const property name        // "area01", "area02", etc.
+    const property background  // Visual de fondo
+    const property changeEvents = []
+    
+    /*
+     * Carga el área activando objetos pre-creados
+     * RÁPIDO: ~50-100ms vs 10 segundos antes
+     */
+    method load() {
+        log.info(self, "\n>>> Cargando " + name + "...")
+        
+        // 1. Cargar fondo
         game.addVisual(background)
-        //cargo los objetos colisionables
-        self.addInvisibleObjects()
-        // Cargo a solidSnake
+        
+        // 2. Activar objetos del pool (guardias, cajas, llaves, etc.)
+        objectPool.activateArea(name)
+        
+        // 3. Agregar a Snake
         game.addVisual(solidSnake)
-       
-        // Agrego los guardias (statics y patroll)
-        guards.forEach { guard => game.addVisual(guard) }
-        colissionHandler.loadAread(self)
 
-        // cargo los items del area
-        items.forEach({item=>game.addVisual(item)})
+        // 4. Agregar HUD
+        hud.drawHearts()
     }
-
-    method guards() { return guards } 
-    method removeArea() { 
-        colissionHandler.destroyArea(self)
-        levels.clearGame()
+    
+    /*
+     * Descarga el área desactivando objetos
+     */
+    method unload() {         
+        // 1. Desactivar objetos del pool
+        objectPool.deactivateArea(name)
+        
+        // 2. Limpiar visuales TODO: Optimizar para no eliminar todo cada vez (solo los del area)
+        game.allVisuals().forEach { visual => 
+            game.removeVisual(visual) 
+        }
+        
+        log.info(self, "<<< " + name + " descargada\n")
     }
-
+    
     method addChangeEvent(event) {
         changeEvents.add(event)
     }
-
+    
     method checkAreaChange(character) {
-        return changeEvents.findOrDefault({e => e.canCharacterChangeArea(character)}, null)
-    }
-
-    method addInvisibleObjects(){
-        invisibleObjects.forEach({obj => game.addVisual(obj)})
+        return changeEvents.findOrDefault(
+            { e => e.canCharacterChangeArea(character) }, 
+            null
+        )
     }
 }
 
-// Instancias de areas del nivel 1
+// ===== Instancias de áreas =====
 const area01 = new Area(
+    name = "area01",
     background = area01BG,
-    name = "Area 01",
-    changeEvents = [goToArea02, goToArea03A, goToArea03B],
-    //guards = [static01, patroll01],
-    invisibleObjects=invisibleArea01,
-    items = [box1]
+    changeEvents = [goToArea02, goToArea03A, goToArea03B]
 )
 
 const area02 = new Area(
+    name = "area02",
     background = area02BG,
-    name = "Area 02",
-    changeEvents = [goToArea01],
-    guards = [static02, patroll02],
-    invisibleObjects=[]
+    changeEvents = [goToArea01, goToArea05A, goToArea05B]
 )
 
 const area03 = new Area(
+    name = "area03",
     background = area03BG,
-    name = "Area 03",
-    changeEvents = [goToArea01A, goToArea01B],
-    guards = [static03A, static03B, patroll03],
-    invisibleObjects=[]
+    changeEvents = [goToArea01A, goToArea01B, goToArea04A, goToArea04B]
 )
 
 const area04 = new Area(
+    name = "area04",
     background = area04BG,
-    name = "Area 04",
-    changeEvents = [], // Agregar eventos de cambio de area
-    guards = [patroll04A, patroll04B],
-    invisibleObjects=[] 
-    
+    changeEvents = [goToArea03]
 )
 
 const area05 = new Area(
+    name = "area05",
     background = area05BG,
-    name = "Area 05",
-    changeEvents = [], // Agregar eventos de cambio de area
-    invisibleObjects=[]
+    changeEvents = []
 )
 
-const allRegisteredAreas = [area01, area02, area03, area04, area05]
+const allAreasLevel01 = [
+    area01,
+    area02,
+    area03,
+    area04,
+    area05
+]

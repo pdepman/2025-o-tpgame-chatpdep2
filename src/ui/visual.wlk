@@ -3,11 +3,28 @@ import wollok.game.*
 /*
  * Definición base para todos los fondos visuales
  * (idea: https://github.com/wollok/bobEsponjaGame  )
+ * No tienen interacción, solo son imágenes de fondo
 */
 class Visual {
 	var property image
 	var property position = game.origin()
+
+    method collidedBy(other) {  }
 }
+
+object heart {
+    method create(pos) {
+        return new Visual(
+            image = "heart_hud.png",
+            position = pos
+            )
+    }
+}
+
+const bullet = new Visual(
+    image = "bullets.gif",
+    position = game.origin()
+)
 
 // Inicio
 const start = new Visual(
@@ -44,4 +61,19 @@ const area04BG = new Visual(
 const area05BG = new Visual(
     image = "level01-05.png",
     position = game.origin()
+)
+
+const pauseScreen = new Visual(
+    image = "paused.png",
+    position = game.at(4,3)
+)
+
+const gameOverScreen = new Visual(
+    image = "GAME_OVER.png",
+    position = game.at(4,3)
+)
+
+const winnerScreen = new Visual(
+    image = "metal_gear.gif",
+    position = game.at(5,3)
 )

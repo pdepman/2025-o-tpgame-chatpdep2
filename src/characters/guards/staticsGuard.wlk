@@ -1,27 +1,29 @@
-import wollok.game.* // Es necesario importar wollok.game.* cuando defino una clase?
-
+import src.inputManager.movements.*
 import src.characters.guards.guards.Guard
 
 
 class StaticGuard inherits Guard {
-    override method image() = "static_guard.png"
+    var moveCount=0
     // Comportamiento polimórfico (Interfaz)
-    override method move() { } 
+    override method move(){
+        moveCount +=1
+        // justo 20, si se "pasa" es porque ya está realizando el movimiento
+        if(moveCount==20){
+            self.getMove()
+        }
+    } 
+
+    method getMove() {
+        movement.moveDown(self)
+        game.schedule(500, {movement.moveDown(self)})
+        game.schedule(1000, {movement.moveLeft(self)})
+        game.schedule(1500, {movement.moveRight(self)})
+        game.schedule(2000, {movement.moveRight(self)})
+        game.schedule(2500, {movement.moveLeft(self)})
+        game.schedule(3000, {movement.moveUp(self)})
+        game.schedule(3500, {movement.moveUp(self)})
+        moveCount = 0 // Reinicio el contador      
+    }
     override method verifyDetection() { } 
     override method updateState() { }
 }
-
-/**
- * Instancio guardias estáticos del nivel 01
- * por el momento, los guardias no mantienen "estado", igualmente los separo por area.
- * TODO: Handler que maneje el estado de todos los guardias y haga el update cuando carga el area.
- */
-// Area01
-const static01 = new StaticGuard (position = game.at(1,1), lastPosition = game.at(1,1))
-
-// Area02
-const static02 = new StaticGuard (position = game.at(18,10), lastPosition = game.at(18,10))
-
-// Area03
-const static03A = new StaticGuard (position = game.at(9,3), lastPosition = game.at(9,3))
-const static03B = new StaticGuard (position = game.at(2,10), lastPosition = game.at(2,10))

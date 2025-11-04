@@ -1,0 +1,16 @@
+import src.system.gameStatus.*
+import src.levels.level01.*
+
+describe "Test de estados del juego" {
+  test "Se completa nivel actual y cambia a próximo nivel" {
+    gameCurrentStatus.levelUp()
+
+    assert.equals("level 02", gameCurrentStatus.currentLevel())
+  }
+
+  test "El jugador realizó un cambio entre areas" {
+    gameCurrentStatus.modifyArea(area03)
+
+    assert.equals(area03, gameCurrentStatus.actualArea())
+  }
+}

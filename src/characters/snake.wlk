@@ -1,78 +1,120 @@
+import src.system.objectPool.*
+import src.items.pickables.*
+import src.utils.log.log
+import src.utils.utils.utils
+import src.ui.hud.hud
+import src.gameManager.gameManager
+import src.characters.character.Character
 import src.inputManager.movements.*
 import src.system.colissions.*
 import src.levels.level01.*
 import src.levels.areaManager.areaManager
-object solidSnake{
-  var property position = game.origin()
-  var property lastPosition = game.origin()
-  var property lastMovement = "right"
 
-  var property currentItem = null
-
-  method esColisionable() = false
-  method esItem() = false
-
-  method image() {
+/*
+ * Solid Snake - Personaje principal controlado por el jugador
+ * Hereda de Character pero tiene comportamiento único
+ */
+class Snake inherits Character {
+    var currentItem = null
+    const equipment = [] // -> Si llegamos, agregamos que pueda cambiar entre items
+    
+    method currentItem() = currentItem
+    
+    // TODO: directamente puede devolver "sknake_" + currentItem.className() + self.lastMovement() + ".png"
+    override   method image() {
         if (currentItem != null) {
             return currentItem.image()
         } else {
             return "snake_" + self.lastMovement() + ".png"
         }
     }
-
-  method update() { } // TODO: Implementar
-  method collidedForGuard(guard){
-    console.println("snake colisionó un guardia...")
-    if (guard.canBeCollided()){
-      position = lastPosition
+    
+    /*
+     * Hook: Se ejecuta después de cambiar de posición
+     */
+    override method onPositionChanged() {
+        // Verificar si Snake debe cambiar de área
+        areaManager.update(self)        
     }
+    
+    /*
+     * Colisión con otros objetos
+     */
+    // Por ahora no justifica override metodo collidedBy(other)
 
-  }
-
- method moveTo(newPos) {
-        
-        // if (currentItem != null) {
-        //     self.dejarItem()
-        // }
-
-        if (movement.canMove(newPos) && !colissionHandler.verifyColission(newPos)) {
-            lastPosition = position
-            position = newPos
+    override method takeDamage(amount) {
+        var damage = amount
+        if (currentItem != null){
+            damage = currentItem.damageDecreases(self, amount)
         }
-        areaManager.update(self)
+        super(damage)
+        hud.lostHeart()
     }
 
-
-    method accionUsarItem() {
-        if (currentItem != null) {
-            self.dejarItem()
-        } else {
-           colissionHandler.processInteraction(self)
+    override method die() {
+        super()
+        gameManager.gameOver()
+    }
+    
+    override method collidedBy(other){
+        if (utils.getClassName(other) == "Health"){
+            self.heal(100)
+            hud.recoverHearts()
+            objectPool.deactivateObject(other)
+        }
+        if (utils.getClassName(other) != "Health"){
+            super(other)
         }
     }
+    // TODO: Métodos adicionales específicos de Snake (usar objetos, agacharse, etc.)
+    /*
+    * Recoge un ítem en la posición actual (si hay alguno)
+    */
+    method pickItem() {
+        colissionHandler.processPickItem(self)
+    }
 
-    method equiparItem(item) {
+
+    /*
+    * Suelta el ítem actual (si tiene alguno)
+    */
+    method dropItem() {
+        colissionHandler.processDropItem(self)
+    }
+
+     method pickUpItem(item) {
+        equipment.add(item)
         currentItem = item
     }
 
-
-    method dejarItem() {
-
+    method giveUpItem() {
         if (currentItem != null) {
-            currentItem.position(self.position())
-            game.addVisual(currentItem)
+            currentItem.drop(self)
         }
-        
-        currentItem = null 
+        currentItem = null
     }
 
-// con este metodo podemos cambiar de area estando parado sobre la posicion de cambio de area
-  // method moveTo(nuevaPos) {
-  //   var change = areaManager.update(self) // Evento para verificar si se cambia de area
-  //   if (self.canMove(nuevaPos) && !change) {
-  //       position = nuevaPos
-  //       console.println(self.position())
-  //   }
-  // }
-  
-  }
+    method useItem() {
+        if (currentItem != null) {
+            log.info(self, "Snake usa: " + utils.getClassName(currentItem))
+            currentItem.beUse(self)
+        } else {
+            log.info(self, "No tiene ningún objeto para usar.")
+        }
+    }
+
+    method lostItem(item){
+        if(currentItem == item){
+            currentItem = null
+        }
+        if (equipment != [] && equipment.contains(item)){
+            equipment.remove(item)
+        }
+    }
+}
+
+const solidSnake = new Snake(
+    position = game.origin(),
+    lastPosition = game.origin(),
+    movementSpeed = 1
+)

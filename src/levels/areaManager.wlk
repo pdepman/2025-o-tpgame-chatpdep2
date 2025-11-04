@@ -1,30 +1,53 @@
+import src.system.objectPool.objectPool
+import src.system.gameStatus.gameCurrentStatus
 import src.levels.level01.*
 
-
+/*
+* Maneja los cambios entre áreas y la actualización de comportamientos de guardias
+*/
 object areaManager {
-    var actualArea = area01
-
+    
     method update(character) {
-        const event = actualArea.checkAreaChange(character)
-        if (event != null) {
-            self.changeArea(character, event)
+        const change = gameCurrentStatus.actualArea().checkAreaChange(character)
+        if (change != null) {
+            self.changeArea(character, change)
         }
     }
-
-    method changeArea(character, event) {
-        actualArea.removeArea()
-        actualArea = event.goToArea()
-        actualArea.load()
-        character.position(event.nextAreaPosition())
-        //console.println(character.position()) // para debug
+    
+    method changeArea(character, change) {        
+        // 1. Descargar área actual
+        gameCurrentStatus.actualArea().unload()
+        
+        // 2. Actualizar área actual
+        gameCurrentStatus.modifyArea(change.goToArea())
+        
+        // 3. Cargar nueva área
+        gameCurrentStatus.actualArea().load()
+        
+        // 4. Posicionar personaje
+        character.position(change.nextAreaPosition())
+    }
+    
+    /*
+     * Control periódico de comportamiento de guardias activos
+     */
+    method launchGuardsBehavior() {
+        game.onTick(500, "guardsBehavior", { self.updateActiveGuards() })
+    }
+    
+    method updateActiveGuards() {
+        const activeGuards = objectPool.getActiveGuardsInCurrentArea()
+        
+        activeGuards.forEach { guard =>
+            guard.update()
+        }
     }
 }
 
 /*
  * Manejador de areas y transiciones entre ellas
  */
-class ChangeAreaEvent {
-    const property currentArea // Area actual 
+class AreaChange {
     const property position // posición de cambio entre areas
     const property nextDirection // "up", "down", "left", "right"
     const property goToArea // Area a la que se quiere ir
@@ -40,7 +63,7 @@ class ChangeAreaEvent {
 
 /*
  * Se cargan todos los eventos de cambio entre areas, en las posiciones correspondientes
- * instanciando la clase ChangeAreaEvent.
+ * instanciando la clase AreaChange.
  * Se encuentra mapa completo con numeración de areas en assets/images/1280x768
  */
 
@@ -48,24 +71,21 @@ class ChangeAreaEvent {
 
  // Ver si es necesario hacer mas descriptivo el nombre del objeto (ej: changeToArea02FromArea01Up)
  // Eventos de cambio de area 01
- const goToArea02 = new ChangeAreaEvent(
-    currentArea = area01,
+ const goToArea02 = new AreaChange(
     position = game.at(12, 11),
     nextDirection = "up",
     goToArea = area02,
     nextAreaPosition = game.at(12, 1)
 )
 
-const goToArea03A = new ChangeAreaEvent(
-    currentArea = area01,
+const goToArea03A = new AreaChange(
     position = game.at(0, 5),
     nextDirection = "left",
     goToArea = area03,
     nextAreaPosition = game.at(19, 5)
 )
 
-const goToArea03B = new ChangeAreaEvent(
-    currentArea = area01,
+const goToArea03B = new AreaChange(
     position = game.at(0, 9),
     nextDirection = "left",
     goToArea = area03,
@@ -73,27 +93,60 @@ const goToArea03B = new ChangeAreaEvent(
 )
 
 // Eventos de cambio de area 02
- const goToArea01 = new ChangeAreaEvent(
-    currentArea = area02,
+ const goToArea01 = new AreaChange(
     position = game.at(12, 1),
     nextDirection = "down",
     goToArea = area01,
     nextAreaPosition = game.at(12, 11)
 )
 
+ const goToArea05A = new AreaChange(
+    position = game.at(17, 10),
+    nextDirection = "up",
+    goToArea = area05,
+    nextAreaPosition = game.at(14, 6)
+)
+
+ const goToArea05B = new AreaChange(
+    position = game.at(18, 10),
+    nextDirection = "up",
+    goToArea = area05,
+    nextAreaPosition = game.at(14, 6)
+)
+
 // Eventos de cambio de area 03
-const goToArea01A = new ChangeAreaEvent(
-    currentArea = area03,
+const goToArea01A = new AreaChange(
     position = game.at(19, 5),
     nextDirection = "right",
     goToArea = area01,
-    nextAreaPosition = game.at(1, 5)
+    nextAreaPosition = game.at(0, 5)
 )
 
-const goToArea01B = new ChangeAreaEvent(
-    currentArea = area03,
+const goToArea01B = new AreaChange(
     position = game.at(19, 9),
     nextDirection = "right",
     goToArea = area01,
-    nextAreaPosition = game.at(1, 9)
+    nextAreaPosition = game.at(0, 9)
+)
+
+const goToArea04A = new AreaChange(
+    position = game.at(4, 11),
+    nextDirection = "up",
+    goToArea = area04,
+    nextAreaPosition = game.at(4, 1)
+)
+
+// Borrar ¿?
+const goToArea04B = new AreaChange(
+    position = game.at(8, 11),
+    nextDirection = "up",
+    goToArea = area04,
+    nextAreaPosition = game.at(8, 1)
+)
+// Eventos de cambio de area 04
+const goToArea03 = new AreaChange(
+    position = game.at(8, 1),
+    nextDirection = "down",
+    goToArea = area03,
+    nextAreaPosition = game.at(8, 11)
 )
