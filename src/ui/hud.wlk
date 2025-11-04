@@ -10,19 +10,14 @@ object hud {
         [2,3,4,5,6].forEach { i =>
             fullHearts.add(heart.create(game.at(i, 0)))
         }
-/*         fullHearts.add(heart.create(game.at(2, 0)))
-        fullHearts.add(heart.create(game.at(3, 0)))
-        fullHearts.add(heart.create(game.at(4, 0)))
-        fullHearts.add(heart.create(game.at(5, 0)))
-        fullHearts.add(heart.create(game.at(6, 0))) */
         currentHearts = fullHearts.take(5)
-        game.addVisual(snake_hud)
         log.debug(self, "Inicializado correctamente")
     }
 
     method drawHearts(){
         currentHearts.forEach { h =>
             game.addVisual(h)}
+        game.addVisual(snake_hud)
     }
 
     method lostHeart(){
