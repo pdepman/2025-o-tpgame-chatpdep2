@@ -88,4 +88,6 @@ class Weapon inherits Pickable {
 
 class Health inherits Pickable {
     override method image() = "health.png"
+
+    override method collidedBy(other) { }
 }
