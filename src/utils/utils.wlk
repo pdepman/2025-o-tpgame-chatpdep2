@@ -30,7 +30,7 @@ object utils {
     method getClassName(instancia) {
         try {
             if (instancia == null) {
-                throw new Exception(message = "Instancia nula en getClassName")
+                return ""
             }
 
             const fullName = instancia.className()

@@ -19,15 +19,21 @@ class Snake inherits Character {
     const equipment = [] // -> Si llegamos, agregamos que pueda cambiar entre items
     
     method currentItem() = currentItem
-    
-    // TODO: directamente puede devolver "sknake_" + currentItem.className() + self.lastMovement() + ".png"
-    override   method image() {
+    method currentItemName() {
+        if (currentItem == null || utils.getClassName(currentItem) == "DoorKey"){
+            return "empty"
+        }else{
+            return utils.getClassName(currentItem)
+        }
+    }
+   override method image() = "snake_" + self.currentItemName() + "_" + self.lastMovement() + ".png"
+/*     override   method image() {
         if (currentItem != null || utils.getClassName(currentItem) == "DoorKey") {
             return currentItem.image()
         } else {
             return "snake_" + self.lastMovement() + ".png"
         }
-    }
+    } */
     
     /*
      * Hook: Se ejecuta después de cambiar de posición
@@ -57,12 +63,12 @@ class Snake inherits Character {
     }
     
     override method collidedBy(other){
-        if (utils.getClassName(other) == "Health"){
+        if (utils.getClassName(other) != null && utils.getClassName(other) == "Health"){
             self.heal(100)
             hud.recoverHearts()
             objectPool.deactivateObject(other)
         }
-        if (utils.getClassName(other) == "Winner"){
+        if (utils.getClassName(other) != null && utils.getClassName(other) == "Winner"){
             other.equip(self)
         }else{
             super(other)
