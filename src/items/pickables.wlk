@@ -28,12 +28,15 @@ class Pickable inherits GameObject {
      * Se llama cuando el ítem se usa (override en subclases)
      */
     method beUse(character) {}
+
+    /*
+     * Se llama cuando el ítem "recibe" daño (override en subclases)
+     */
+    method damageDecreases(character, amount) {}
 }
 
 class Box inherits Pickable {
     var durability = 2
-
-    method durability() = durability
 
     override method image() = "cardboardBox.png"
 
@@ -43,13 +46,21 @@ class Box inherits Pickable {
         log.info(self, utils.getClassName(character + " se esconde en la caja"))
     }
 
+    override method damageDecreases(character, amount){
+        self.reduceDurability()
+        if (durability <= 0) {
+            character.lostItem(self)
+        }
+        return amount/2
+    }
+
     method reduceDurability() {
         durability = durability - 1
         if (durability <= 0) {
             game.removeVisual(self)
             isActive = false
             log.info(self, "La caja se destruyó.")
-        }
+        }           
     }
 }
 

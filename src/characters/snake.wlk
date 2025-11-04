@@ -32,8 +32,7 @@ class Snake inherits Character {
      */
     override method onPositionChanged() {
         // Verificar si Snake debe cambiar de área
-        areaManager.update(self)
-        
+        areaManager.update(self)        
     }
     
     /*
@@ -42,18 +41,14 @@ class Snake inherits Character {
     // Por ahora no justifica override metodo collidedBy(other)
 
     override method takeDamage(amount) {
-        var finalDamage = amount
-        if (utils.getClassName(currentItem) == "Box") {
-            finalDamage = amount / 2
-            currentItem.reduceDurability()
-            if (currentItem.durability() <= 0) {
-                currentItem = null
-            }
+        var damage = amount
+        if (currentItem != null){
+            damage = currentItem.damageDecreases(self, amount)
         }
-
-        super(finalDamage)
+        super(damage)
         hud.lostHeart()
     }
+
     override method die() {
         super()
         gameManager.gameOver()
@@ -93,6 +88,15 @@ class Snake inherits Character {
             currentItem.beUse(self)
         } else {
             log.info(self, "No tiene ningún objeto para usar.")
+        }
+    }
+
+    method lostItem(item){
+        if(currentItem == item){
+            currentItem = null
+        }
+        if (equipment != [] && equipment.contains(item)){
+            equipment.remove(item)
         }
     }
 }
