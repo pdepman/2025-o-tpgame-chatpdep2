@@ -5,6 +5,8 @@ import src.gameObject.GameObject
 
 class Pickable inherits GameObject {
     override method isPickable() = true
+    method displayImage()
+    override method image() = self.displayImage() + ".png"
      
     /*
      * Se llama cuando el personaje levanta el ítem
@@ -37,8 +39,7 @@ class Pickable inherits GameObject {
 
 class Box inherits Pickable {
     var durability = 2
-
-    override method image() = "cardboardBox.png"
+    override method displayImage() = "cardboardBox"
 
     override method beUse(character) {
         log.debug(self, utils.getClassName(character + " se escondió en la caja"))
@@ -64,16 +65,13 @@ class Box inherits Pickable {
 
 class DoorKey inherits Pickable {
     const type = "red" // Puede ser "red" o "blue", lo define el factory
-
-    method type() = type
     override method image() = type + "_key.png"
+    override method displayImage() = "empty"
 }
-
 
 class Weapon inherits Pickable {
     const bullets = bulletManager.takeBullets()
-    override method image() = "weapon.png"
-
+    override method displayImage() = "weapon"
 
     override method beUse(character) {
         console.println("Snake dispara su arma. ¡Bang! ¡Bang!... estás liquidado")
@@ -89,7 +87,14 @@ class Weapon inherits Pickable {
 class Health inherits Pickable {
     override method isPickable() = false
     override method isCollidable() = true
+    override method displayImage() = "empty"
     override method image() = "health.png"
 
     override method collidedBy(other) { }
 }
+
+class EmptyHands inherits Pickable{
+    override method displayImage() = "empty"
+}
+
+const emptyHands = new EmptyHands(position = game.origin())

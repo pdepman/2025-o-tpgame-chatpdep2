@@ -15,19 +15,21 @@ import src.levels.areaManager.areaManager
  * Hereda de Character pero tiene comportamiento único
  */
 class Snake inherits Character {
-    var currentItem = null
+    var currentItem = emptyHands
     const equipment = [] // -> Si llegamos, agregamos que pueda cambiar entre items
     
     method currentItem() = currentItem
     method equipment() = equipment
-    method currentItemName() {
+/*     method currentItemName() {
+        return currentItem.displayName();
+        
         if (currentItem == null || utils.getClassName(currentItem) == "DoorKey"){
             return "empty"
         }else{
             return utils.getClassName(currentItem)
         }
-    }
-   override method image() = "snake_" + self.currentItemName() + "_" + self.lastMovement() + ".png"
+    } */
+   override method image() = "snake_" + currentItem.displayImage() + "_" + self.lastMovement() + ".png"
 
     /*
      * Hook: Se ejecuta después de cambiar de posición
@@ -97,8 +99,8 @@ class Snake inherits Character {
     }
 
     method useItem() {
-        if (currentItem != null) {
-            log.info(self, "Snake usa: " + utils.getClassName(currentItem))
+        if (currentItem != emptyHands) {
+            log.info(self, "Snake usa: " + currentItem.displayImage())
             currentItem.beUse(self)
         } else {
             log.info(self, "No tiene ningún objeto para usar.")
@@ -107,7 +109,7 @@ class Snake inherits Character {
 
     method removeItemFromEquipment(item){
         // las verificaciones las hace el caller
-        currentItem = null
+        currentItem = emptyHands
         if (equipment != [] && equipment.contains(item)){
             equipment.remove(item)
         }
