@@ -1,3 +1,4 @@
+import src.items.pickables.*
 import src.utils.utils.utils
 import src.utils.log.log
 import src.characters.*
@@ -52,7 +53,7 @@ object colissionHandler {
     * Intenta que el personaje suelte su objeto actual
     */
     method processDropItem(character) {
-        if (character.currentItem() != null) {
+        if (character.equipment().itemInUse() != emptyHands) {
             character.giveUpItem()
             log.debug(self, utils.getClassName(character) + " suelta el objeto.")
         } else {

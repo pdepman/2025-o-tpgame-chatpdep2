@@ -13,7 +13,8 @@ import src.levels.areaManager.areaManager
 
 /*
  * Solid Snake - Personaje principal controlado por el jugador
- * Hereda de Character pero tiene comportamiento único
+ * Hereda de Character pero tiene comportamiento único.
+ * Por ser juego tipo "one player", es un objeto singleton (WKO).
  */
 object solidSnake inherits Character {
     method initialize(){
@@ -22,10 +23,13 @@ object solidSnake inherits Character {
         movementSpeed = 1
     }
     const equipment = snakeEquipment // -> Si llegamos, agregamos que pueda cambiar entre items
-    const currentItem = snakeEquipment.itemInUse()
 
     method equipment() = equipment
-    override method image() = "snake_" + currentItem.displayImage() + "_" + self.lastMovement() + ".png"
+    override method image() = 
+        "snake_" + 
+        equipment.itemInUse().displayImage() + 
+        "_" + 
+        self.lastMovement() + ".png"
 
     override method onPositionChanged() {
         // Verificar si Snake debe cambiar de área
@@ -35,22 +39,6 @@ object solidSnake inherits Character {
     /*
      * Colisión con otros objetos
      */
-    // Por ahora no justifica override metodo collidedBy(other)
-
-    override method takeDamage(amount) {
-        var damage = amount
-        if (currentItem != null){
-            damage = currentItem.damageDecreases(self, amount)
-        }
-        super(damage)
-        hud.lostHeart()
-    }
-
-    override method die() {
-        super()
-        gameManager.gameOver()
-    }
-    
     override method collidedBy(other){
         if (utils.getClassName(other) != null && utils.getClassName(other) == "Health"){
             self.heal(100)
@@ -63,18 +51,44 @@ object solidSnake inherits Character {
             super(other)
         }
     }
-    // TODO: Métodos adicionales específicos de Snake (usar objetos, agacharse, etc.)
-    method pickUpItem(){
-        equipment.pickUpItem()
+
+    override method takeDamage(amount) {
+        var damage = amount
+        if (equipment.itemInUse() != emptyHands){
+            damage = equipment.itemInUse().damageDecreases(self, amount)
+        }
+        super(damage)
+        hud.lostHeart()
     }
 
-    method meetsConditionToWin() = equipment.any({ item =>
-        item.checkWin()
-    })
-}
+    override method die() {
+        super()
+        gameManager.gameOver()
+    }
+    
 
-/* const solidSnake = new Snake(
-    position = game.origin(),
-    lastPosition = game.origin(),
-    movementSpeed = 1
-) */
+
+    /*
+    * Intenta agarrar un ítem (si existe alguno en esa posición)
+    */
+    method pickItem(){
+        colissionHandler.processPickItem(self)
+    }
+
+    /*
+    * Suelta el ítem actual (si tiene alguno)
+    */
+    method dropItem() {
+        colissionHandler.processDropItem(self)
+    }
+
+    method useItem() {
+        equipment.useItem(self)
+    }
+
+    method giveUpItem(){
+        equipment.giveUpItem(self)
+    } 
+
+    method meetsConditionToWin() = equipment.hasItemToWin()
+}

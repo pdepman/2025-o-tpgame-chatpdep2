@@ -1,3 +1,4 @@
+import src.characters.snake.snake.solidSnake
 import src.utils.log.log
 import src.system.colissions.colissionHandler
 import src.items.pickables.*
@@ -8,37 +9,22 @@ object snakeEquipment {
     method allEquipment() = allEquipment
     method itemInUse() = itemInUse 
 
-    /*
-    * Recoge un ítem en la posición actual (si hay alguno)
-    */
-    method pickItem() {
-        colissionHandler.processPickItem(self)
-    }
-
-
-    /*
-    * Suelta el ítem actual (si tiene alguno)
-    */
-    method dropItem() {
-        colissionHandler.processDropItem(self)
-    }
-
-     method pickUpItem(item) {
+    method pickUpItem(item) {
         allEquipment.add(item)
         itemInUse = item
     }
 
-    method giveUpItem() {
+    method giveUpItem(character) {
         if (itemInUse != null) {
-            itemInUse.drop(self)
+            itemInUse.drop(character)
         }
         self.removeItemFromEquipment(itemInUse)
     }
 
-    method useItem() {
+    method useItem(character) {
         if (itemInUse != emptyHands) {
             log.info(self, "Snake usa: " + itemInUse.displayImage())
-            itemInUse.beUse(self)
+            itemInUse.beUse(character)
         } else {
             log.info(self, "No tiene ningún objeto para usar.")
         }
@@ -51,4 +37,6 @@ object snakeEquipment {
             allEquipment.remove(item)
         }
     }
+
+    method hasItemToWin() = allEquipment.any({ item => item.checkWin()})
 }
