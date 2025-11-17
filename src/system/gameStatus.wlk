@@ -1,3 +1,4 @@
+import src.gameManager.*
 import src.utils.log.log
 import src.levels.level01.*
 import src.levels.tilemap.*
@@ -22,6 +23,8 @@ object gameCurrentStatus {
     method actualArea() = currentArea 
     method currentLevel() = currentLevel
     method currentTileMap() = currentTileMap
+
+    method isGameOver() = gameManager.isGameOver()
     
     /*
      * Cambia de área y actualiza la matriz correspondiente

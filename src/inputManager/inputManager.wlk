@@ -1,8 +1,8 @@
+import src.system.levelsManager.levelsManager
 import src.system.soundManager.*
 import src.gameManager.*
 import src.system.gameStatus.*
 import src.inputManager.movements.*
-import src.system.system.*
 import src.characters.snake.snake.solidSnake
 import wollok.game.*
 import src.ui.visual.*
@@ -38,7 +38,7 @@ object keyboardManager {
                 levelsManager.loadLevel1()
                 soundManager.backgroundSound()
             } 
-            if(gameManager.isGameOver()) { gameManager.restartGame() }  
+            if(gameCurrentStatus.isGameOver()) { gameManager.restartGame() }  
         })
         
         keyboard.a().onPressDo({ solidSnake.pickItem() })   // recoger
@@ -48,7 +48,11 @@ object keyboardManager {
         keyboard.p().onPressDo({ gameManager.togglePause() })  // pausar/reanudar juego})
 
         // TODO: implementar función de salir del juego
-        keyboard.q().onPressDo( {  })
+        keyboard.q().onPressDo({ 
+            if(game.hasVisual(gameOverScreen) || game.hasVisual(winnerScreen)){
+                game.stop()
+            }
+        })
 
     }
 }

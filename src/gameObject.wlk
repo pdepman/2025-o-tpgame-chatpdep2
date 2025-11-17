@@ -5,10 +5,6 @@ import wollok.game.*
  * Clase abstracta base para todos los objetos del juego
  * Define la interfaz común que todos los objetos deben implementar
  */
-/*
- * Clase base abstracta para todos los objetos del juego.
- * Define comportamiento y estado común (posición, activación, colisión).
- */
 class GameObject {
     var position
     var isActive = false

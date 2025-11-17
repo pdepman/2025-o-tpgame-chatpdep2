@@ -1,10 +1,11 @@
+import src.system.levelsManager.levelsManager
+import src.system.initialConfig.config
 /**
  * Test que verifica que el juego inicia correctamente y que el jugador puede moverse.
  * Este test se enfoca en la integración de los componentes principales del juego,
  * para testear después de cada refactor o feature agregada.
  */
 import wollok.game.*
-import src.system.system.*
 import src.ui.visual.*
 import src.characters.snake.snake.*
 import src.inputManager.inputManager.keyboardManager

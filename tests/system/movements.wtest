@@ -1,6 +1,7 @@
+import src.system.levelsManager.levelsManager
+import src.system.initialConfig.config
 import src.inputManager.movements.*
 import src.characters.snake.snake.*
-import src.system.system.*
 
 import wollok.game.*
 

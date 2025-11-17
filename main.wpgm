@@ -1,5 +1,5 @@
+import src.system.initialConfig.config
 import src.gameManager.gameManager
-import src.system.system.*
 
 program MetalGearNES {
 	// Configuración global del juego

@@ -1,3 +1,4 @@
+import src.system.levelsManager.levelsManager
 import src.utils.log.log
 import src.items.bullet.bulletManager
 import src.ui.hud.hud
@@ -5,7 +6,6 @@ import src.system.objectPool.objectPool
 import src.levels.factory.*
 import src.system.colissions.colissionHandler
 import src.inputManager.inputManager.keyboardManager
-import src.levels.level01.*
 import wollok.game.*
 import src.characters.snake.snake.*
 import src.ui.visual.*
@@ -56,29 +56,4 @@ object config {
     " ├─ Subsistemas activos: keyboardManager, objectPool, hud, areaManager, bulletManager, levelsManager\n" +
     " └─ Recurso de audio cargado: 427513__carloscarty__chiptune-one.wav (loop habilitado)")
   }
-}
-
-/*
- * Manejador de niveles
- */
-object levelsManager {
-    method loadIntro() {
-        self.clearGame()
-        game.addVisual(start)
-        game.addVisual(startMessage)
-        log.debug(self, "Intro caragada")
-    }
-    
-    method loadLevel1() {
-        self.clearGame()
-        solidSnake.position(game.at(13, 1))
-        area01.load()
-        log.debug(self, "Level 01 cargado")
-    }
-    
-    method clearGame() {
-        game.allVisuals().forEach { visual => 
-            game.removeVisual(visual) 
-        }
-    }
 }

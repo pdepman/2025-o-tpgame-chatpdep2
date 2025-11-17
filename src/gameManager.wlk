@@ -1,3 +1,4 @@
+import src.system.levelsManager.levelsManager
 import src.items.pickables.*
 import src.items.winner.*
 import src.utils.log.log
@@ -6,10 +7,8 @@ import src.system.objectPool.*
 import src.system.gameStatus.*
 import src.system.colissions.*
 import src.ui.hud.hud
-import src.system.system.config
 import src.levels.areaManager.*
 import src.levels.level01.*
-import src.system.system.levelsManager
 import src.characters.snake.snake.*
 import src.ui.visual.*
 import src.levels.factory.*
@@ -42,9 +41,15 @@ object gameManager {
     // --------------------
     method winner(character) {
         if (character.meetsConditionToWin()){
-            isGameOver = true
-            log.info(self, "Congratulations! You won this game!")
-            game.addVisual(winnerScreen)
+            if(not isGameOver){
+                isGameOver = true
+                log.info(self, "Congratulations! You won this game!")
+                if(not game.hasVisual(winnerScreen)){
+                    game.addVisual(winnerScreen)
+                }
+                colissionHandler.clear()
+                objectPool.reset()
+            }
         }else{
             game.addVisual(dontWinnerScreen)
             game.schedule(2000, { 
