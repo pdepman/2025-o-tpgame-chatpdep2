@@ -12,7 +12,7 @@ class Pickable inherits GameObject {
      * Se llama cuando el personaje levanta el ítem
      */
     method equip(character) {
-        character.pickUpItem(self)
+        character.equipment().pickUpItem(self)
         game.removeVisual(self)
         isActive = false
     }
