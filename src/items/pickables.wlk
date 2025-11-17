@@ -48,7 +48,7 @@ class Box inherits Pickable {
     override method damageDecreases(character, amount){
         self.reduceDurability()
         if (durability <= 0) {
-            character.removeItemFromEquipment(self)
+            character.equipment().removeItemFromEquipment(self)
         }
         return amount/2
     }
