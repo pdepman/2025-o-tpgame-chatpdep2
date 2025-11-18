@@ -50,7 +50,14 @@ object keyboardManager {
         keyboard.m().onPressDo({ 
             game.addVisual(levelMap)
             game.schedule(2500, {game.removeVisual(levelMap)})
-         })
+        })
+
+        // Mostrar mensaje de ayuda
+        keyboard.h().onPressDo({ 
+            game.addVisual(helpMessage)
+            game.schedule(3000, {game.removeVisual(helpMessage)})
+        })
+
         // salir del juego
         keyboard.q().onPressDo({ 
             if(game.hasVisual(gameOverScreen) || game.hasVisual(winnerScreen)){
