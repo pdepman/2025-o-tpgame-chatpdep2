@@ -6,7 +6,7 @@ import src.gameObject.GameObject
 class Pickable inherits GameObject {
     override method isPickable() = true
     method displayImage()
-    override method image() = self.displayImage() + ".png"
+    method image() = self.displayImage() + ".png"
 
     method checkWin() = false
 

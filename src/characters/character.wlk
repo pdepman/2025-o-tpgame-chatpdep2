@@ -19,6 +19,8 @@ class Character inherits GameObject {
     var property isAlive = true
     var property movementSpeed = 1 // Tiles por movimiento
 
+    method image()
+
     method lastMovement() = lastMovement
     
     /*

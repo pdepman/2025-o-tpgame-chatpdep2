@@ -13,7 +13,7 @@ object tileTypes {
     const property weapon = "W"          // Arma
     const property health = "H"          // Health kit
     const property collision = "C"       // Colisión invisible
-    const property winner = "X"          // Winner
+    const property hostage = "X"          // Rehen
 }
 
 // Template del tablero -No borrar- Tiene definidas filas y columnas

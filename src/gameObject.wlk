@@ -14,7 +14,7 @@ class GameObject {
     // Si es colisionable (isCollidable = true) puede estar "desactivado" para ser colisionado
     var canBeCollided = false 
     
-    method image() // Abstract - debe implementarse en subclases
+    //method image() // Abstract - debe implementarse en subclases
 
     // getters y setters
     method position() = position

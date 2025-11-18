@@ -45,7 +45,7 @@ object solidSnake inherits Character {
             hud.recoverHearts()
             objectPool.deactivateObject(other)
         }
-        if (utils.getClassName(other) != null && utils.getClassName(other) == "Winner"){
+        if (utils.getClassName(other) != null && utils.getClassName(other) == "Hostage"){
             other.equip(self)
         }else{
             super(other)
