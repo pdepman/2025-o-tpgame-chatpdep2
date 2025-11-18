@@ -7,7 +7,9 @@ class Pickable inherits GameObject {
     override method isPickable() = true
     method displayImage()
     override method image() = self.displayImage() + ".png"
-     
+
+    method checkWin() = false
+
     /*
      * Se llama cuando el personaje levanta el ítem
      */
@@ -69,7 +71,7 @@ class BlueKey inherits Pickable {
 }
 
 class RedKey inherits BlueKey {
-    method checkWin() = true
+    override method checkWin() = true
     override method image() = "red_key.png"
 }
 
