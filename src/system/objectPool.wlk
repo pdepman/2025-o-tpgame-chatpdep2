@@ -1,3 +1,4 @@
+import src.levels.areaManager.areaManager
 import src.utils.utils.utils
 import src.utils.log.log
 import src.system.gameStatus.*
@@ -75,7 +76,9 @@ object objectPool {
 
     return areaObjects.filter({ obj =>
         obj.isActive() && (utils.getClassName(obj) == "PatrollGuard" || utils.getClassName(obj) == "StaticGuard")
-    })
+        })
+    }
 }
 
-}
+// Evento tick en comportamiento de guardias
+const guardsBehavior = game.tick(500, { areaManager.updateActiveGuards() }, false) 

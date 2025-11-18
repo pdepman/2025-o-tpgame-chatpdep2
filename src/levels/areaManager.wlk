@@ -1,4 +1,4 @@
-import src.system.objectPool.objectPool
+import src.system.objectPool.*
 import src.system.gameStatus.gameCurrentStatus
 import src.levels.level01.*
 
@@ -32,7 +32,7 @@ object areaManager {
      * Control periódico de comportamiento de guardias activos
      */
     method launchGuardsBehavior() {
-        game.onTick(500, "guardsBehavior", { self.updateActiveGuards() })
+        guardsBehavior.start()    
     }
     
     method updateActiveGuards() {

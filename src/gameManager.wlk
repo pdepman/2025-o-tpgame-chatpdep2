@@ -49,6 +49,7 @@ object gameManager {
                 }
                 colissionHandler.clear()
                 objectPool.reset()
+                guardsBehavior.stop()
             }
         }else{
             game.addVisual(dontWinnerScreen)
@@ -68,10 +69,12 @@ object gameManager {
             isPaused = true
             log.info(self, "⏸ Game paused")
             game.addVisual(pauseScreen)
+            guardsBehavior.stop()
         } else {
             isPaused = false
             log.info(self, "▶ Resumed")
             game.removeVisual(pauseScreen)
+            guardsBehavior.start()
         }
 
         return
