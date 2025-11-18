@@ -44,10 +44,14 @@ object keyboardManager {
         keyboard.a().onPressDo({ solidSnake.pickItem() })   // recoger
         keyboard.s().onPressDo({ solidSnake.dropItem() })   // soltar
         keyboard.d().onPressDo({ solidSnake.useItem() })    // usar
-
         keyboard.p().onPressDo({ gameManager.togglePause() })  // pausar/reanudar juego})
 
-        // TODO: implementar función de salir del juego
+        // Mostrar mapa del nivel
+        keyboard.m().onPressDo({ 
+            game.addVisual(levelMap)
+            game.schedule(2500, {game.removeVisual(levelMap)})
+         })
+        // salir del juego
         keyboard.q().onPressDo({ 
             if(game.hasVisual(gameOverScreen) || game.hasVisual(winnerScreen)){
                 game.stop()

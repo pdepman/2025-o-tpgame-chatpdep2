@@ -43,6 +43,11 @@ const startMessage = new Visual(
     position = game.at(5,1)
 )
 
+const levelMap = new Visual(
+    image = "map.png",
+    position = game.at(1,1)
+)
+
 // Fondos en nivel 1
 const area01BG = new Visual(
     image = "level01-01.png",
