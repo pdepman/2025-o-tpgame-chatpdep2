@@ -42,9 +42,6 @@ object config {
     // Inicializo movimientos de los guardias
     areaManager.launchGuardsBehavior()
 
-    // Inicializo gestión de balas
-    //bulletManager.init()
-
     // Inicializo levels
     levelsManager.loadIntro()
 

@@ -55,14 +55,6 @@ class Bullet inherits GameObject{
 }
 
 object bulletManager{
-/*     const matchDirection = new Dictionary()
-    method init() {
-        matchDirection.put("right", { pos => game.at(pos.x()+1, pos.y()) })
-        matchDirection.put("left", { pos => game.at(pos.x()-1, pos.y()) })
-        matchDirection.put("up", { pos => game.at(pos.x(), pos.y()+1) })
-        matchDirection.put("down", { pos => game.at(pos.x(), pos.y()-1) })      
-    } */
-
     method takeBullets() = [
         new Bullet(position = game.origin()),
         new Bullet(position = game.origin()),
