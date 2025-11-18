@@ -82,8 +82,7 @@ class Weapon inherits Pickable {
     override method beUse(character) {
         console.println("Snake dispara su arma. ¡Bang! ¡Bang!... estás liquidado")
         bulletManager.fire(
-            character.position(), 
-            character.lastMovement(),
+            character,
             bullets
         )
     }

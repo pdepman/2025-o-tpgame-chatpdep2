@@ -1,24 +1,25 @@
+import src.characters.snake.snake.solidSnake
 import src.system.colissions.*
 import wollok.game.*
 import src.gameObject.GameObject
 
 
 class Bullet inherits GameObject{
-    var gunDirection = "right"
+    var gunOwner = null // TODO: o por defecto snake, o crear objeto emptyGun
     var active = false
-    method image() = gunDirection + "_bullets.gif"
+    method image() = gunOwner.lastMovement() + "_bullets.gif"
 
-    method fire(pos, direction, isVisible){
+    method fire(character, isVisible){
         if (!active){
-            position = pos
-            gunDirection = direction
+            gunOwner = character
             active = true            
             canBeCollided = true
             colissionHandler.register(self)
-            game.schedule(750, { self.stop() })
+            position = gunOwner.position()
             if(isVisible){
                 game.addVisual(self)
             }
+            self.move()
         }
     }
 
@@ -29,37 +30,35 @@ class Bullet inherits GameObject{
         active = false
     }
 
+    method move(){
+
+    }
+
     override method collidedBy(character){
         character.takeDamage(50)
     }
 }
 
 object bulletManager{
-    const matchDirection = new Dictionary()
+/*     const matchDirection = new Dictionary()
     method init() {
         matchDirection.put("right", { pos => game.at(pos.x()+1, pos.y()) })
         matchDirection.put("left", { pos => game.at(pos.x()-1, pos.y()) })
         matchDirection.put("up", { pos => game.at(pos.x(), pos.y()+1) })
         matchDirection.put("down", { pos => game.at(pos.x(), pos.y()-1) })      
-    }
+    } */
 
     method takeBullets() = [
-        new Bullet(position=game.origin()),
+        new Bullet(position = game.origin()),
         new Bullet(position = game.origin()),
         new Bullet(position = game.origin())
     ]
 
-    method fire(pos, direction, bullets) {
+    method fire(character, bullets) {
         var isVisible = true
-        var position = pos
-        if (direction == "left"){
-            position = game.at(pos.x()-2, pos.y()) // desplazo porque el visual "viene" de izq a derecha
-        }
-        bullets.forEach({ bullet =>       
-            bullet.fire(position, direction, isVisible)
-            position = matchDirection.basicGet(direction).apply(position)
-            isVisible = false
-        })
-        
+        bullets.first().fire(character, isVisible) //La primer bala es inmediata
+        bullets.drop(1).forEach({ bullet =>      
+            game.schedule(300, { bullet.fire(character, isVisible) })            
+        })        
     }
 }
