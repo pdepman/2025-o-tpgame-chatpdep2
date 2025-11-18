@@ -1,33 +1,30 @@
 import src.system.gameStatus.gameCurrentStatus
-import src.characters.snake.snake.solidSnake
 import wollok.game.*
 import src.system.colissions.colissionHandler
-import src.levels.level01.*
-
 
 
 /*
- * Definición base para todos los movimientos de todos los personajes.
+ * Definición base para todos los movimientos de todos los elementos "movibles".
 */
 object movement {
-    method moveUp(character) {
-        character.lastMovement("up")
-        character.moveTo(character.position().up(1))
+    method moveUp(gameObject) {
+        gameObject.lastMovement("up")
+        gameObject.moveTo(gameObject.position().up(1))
     }
 
-    method moveDown(character) {
-        character.lastMovement("down")
-        character.moveTo(character.position().down(1))
+    method moveDown(gameObject) {
+        gameObject.lastMovement("down")
+        gameObject.moveTo(gameObject.position().down(1))
     }
 
-    method moveLeft(character) {
-        character.lastMovement("left")
-        character.moveTo(character.position().left(1))
+    method moveLeft(gameObject) {
+        gameObject.lastMovement("left")
+        gameObject.moveTo(gameObject.position().left(1))
     }
 
-    method moveRight(character) {
-        character.lastMovement("right")
-        character.moveTo(character.position().right(1))
+    method moveRight(gameObject) {
+        gameObject.lastMovement("right")
+        gameObject.moveTo(gameObject.position().right(1))
     }
 
     method canMove(pos) {

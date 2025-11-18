@@ -2,12 +2,14 @@ import src.characters.snake.snake.solidSnake
 import src.system.colissions.*
 import wollok.game.*
 import src.gameObject.GameObject
+import src.inputManager.movements.*
+
 
 
 class Bullet inherits GameObject{
     var gunOwner = null // TODO: o por defecto snake, o crear objeto emptyGun
     var active = false
-    method image() = gunOwner.lastMovement() + "_bullets.gif"
+    method image() = gunOwner.lastMovement() + "_bullet.png"
 
     method fire(character, isVisible){
         if (!active){
@@ -19,7 +21,7 @@ class Bullet inherits GameObject{
             if(isVisible){
                 game.addVisual(self)
             }
-            self.move()
+            game.schedule(300, { self.move() })
         }
     }
 
@@ -31,7 +33,10 @@ class Bullet inherits GameObject{
     }
 
     method move(){
-
+        if(gunOwner.lastMovement() == "left") { movement.moveLeft(self) }
+        if(gunOwner.lastMovement() == "right") { movement.moveRight(self) }
+        if(gunOwner.lastMovement() == "up") { movement.moveUp(self) }
+        if(gunOwner.lastMovement() == "down") { movement.moveDown(self) }
     }
 
     override method collidedBy(character){

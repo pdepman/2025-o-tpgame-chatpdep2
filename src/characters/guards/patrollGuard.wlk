@@ -3,7 +3,7 @@ import src.characters.guards.guards.Guard
 
 class PatrollGuard inherits Guard {
     // Repito movimientos horizontales para darle mas peso en la probabilidad...
-    var nextMove
+    var nextMove = movement.moveDown(self)
     const movements = [
         { movement.moveUp(self) },
         { movement.moveDown(self) },
