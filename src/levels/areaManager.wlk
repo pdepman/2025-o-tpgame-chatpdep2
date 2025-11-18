@@ -151,6 +151,18 @@ const goToArea03 = new AreaChange(
     nextAreaPosition = game.at(8, 11)
 )
 
+
+
+// Nuevo acceso entre tanques
+const goToArea03C = new AreaChange(
+    position = game.at(4, 1),
+    nextDirection = "down",
+    goToArea = area03,
+    nextAreaPosition = game.at(4, 11)
+)
+
+
+
 // Eventos de cambio de area 05
 const goToArea02B = new AreaChange(
     position = game.at(14, 5),
