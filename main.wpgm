@@ -1,0 +1,11 @@
+import src.system.initialConfig.config
+import src.gameManager.gameManager
+
+program MetalGearNES {
+	// Configuración global del juego
+	config.load()
+
+	// Inicio juego
+	gameManager.startGame()
+}
+		

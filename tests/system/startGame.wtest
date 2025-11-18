@@ -1,0 +1,43 @@
+import src.system.levelsManager.levelsManager
+import src.system.initialConfig.config
+/**
+ * Test que verifica que el juego inicia correctamente y que el jugador puede moverse.
+ * Este test se enfoca en la integración de los componentes principales del juego,
+ * para testear después de cada refactor o feature agregada.
+ */
+import wollok.game.*
+import src.ui.visual.*
+import src.characters.snake.snake.*
+import src.inputManager.inputManager.keyboardManager
+
+ describe "El juego inicia correctamente, cargando configuraciones y visual iniciales" {
+    test "Configura correctamente los parámetros base del juego" {
+        config.load()
+
+        assert.equals("Metal Gear NES", game.title())
+        assert.equals(12, game.height())
+        assert.equals(20, game.width())
+    }
+
+    test "Start agrega visuales de inicio correctamente" {
+        levelsManager.loadIntro()
+        const visuals = game.allVisuals()
+
+        assert.that(visuals.contains(start))
+        assert.that(visuals.contains(startMessage))
+    }
+
+    test "loadLevel1 limpia el tablero y coloca Snake correctamente" {
+        config.load()
+        levelsManager.loadLevel1()
+
+        assert.equals(game.at(13,1), solidSnake.position())
+    }
+
+    test "El teclado se inicializa sin errores" {
+        keyboardManager.initKeyboard()
+
+        // Si no lanza excepción, consideramos éxito. TODO: implemetar la excepción en keyboardManager XD
+        assert.that(true)
+    }
+}

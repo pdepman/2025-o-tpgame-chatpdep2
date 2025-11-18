@@ -1,0 +1,56 @@
+import src.system.levelsManager.levelsManager
+import src.utils.log.log
+import src.items.bullet.bulletManager
+import src.ui.hud.hud
+import src.system.objectPool.objectPool
+import src.levels.factory.*
+import src.system.colissions.colissionHandler
+import src.inputManager.inputManager.keyboardManager
+import wollok.game.*
+import src.characters.snake.snake.*
+import src.ui.visual.*
+import src.levels.areaManager.*
+import src.system.soundManager.*
+
+
+/*
+ * Configuración principal del juego
+ * Inicializa todos los sistemas en el orden correcto
+ */
+object config {
+    method load() {
+        console.println("╔════════════════════════════════════════╗")
+        console.println("║       METAL GEAR NES - INICIANDO       ║")
+        console.println("╚════════════════════════════════════════╝")
+        
+    // Configuraciones globales del juego
+    game.title("Metal Gear NES")
+    game.cellSize(64)
+    game.height(12)
+    game.width(20)
+    game.boardGround("black.png")
+
+    // Inicializo el manejador de inputs
+    keyboardManager.initKeyboard()
+
+    // Crear todos los objetos del nivel una sola vez
+    objectPool.initializeLevel01()
+
+    // Inicializo el HUD
+    hud.initHUD()
+
+    // Inicializo movimientos de los guardias
+    areaManager.launchGuardsBehavior()
+
+    // Inicializo levels
+    levelsManager.loadIntro()
+
+    // utilidad pseudo log (por ahora solo printea en pantalla)
+    log.info(self, "Configuración inicial completada correctamente.\n" +
+    " ├─ Título: " + game.title() + "\n" +
+    " ├─ Dimensiones: " + game.width() + "x" + game.height() +
+    " ├─ Fondo: black.png\n" +
+    " ├─ Subsistemas activos: keyboardManager, objectPool, hud, areaManager, bulletManager, levelsManager\n" +
+    " └─ Recurso de audio cargado: 427513__carloscarty__chiptune-one.wav (loop habilitado)")
+  }
+}
